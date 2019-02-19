@@ -1,0 +1,128 @@
+<html>
+
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+
+    <script>
+        var data = {};
+        var username = window.location.search.substring(1).split("=")[1];
+        $(document).ready(function () {
+            $("td").click(function (e) {
+                var needid = $(e.target).attr("needid");
+                if (needid) {
+                    //alert($(e.target).attr("pledgeid"));
+                    var qty = prompt("How much can you pledge", "");
+                    alert("pledging quantity " + qty + " for needid " + needid);
+                    data["need_id"] = needid;
+                    data["pledge_qty"] = qty;
+                    data["user"] = "userx"; // TODO.. take user id from log in creds
+                    // TODO update pledge details.. may be call REST service from here...
+                    addPledgeData(data);
+                } else {
+                    var needid = $(this).closest('tr').find('td:eq(0)').text().trim();
+                    var createdby = $(this).closest('tr').find('td:eq(1)').text().trim();
+                    var requiredqty = $(this).closest('tr').find('td:eq(4)').text().trim();
+                    // open a new page with need details
+                    window.location = "http://localhost:3000/needdetails?username=" + username + "&needid=" + needid + "&createdby=" + createdby + "&requiredqty=" + requiredqty;
+                }
+            });
+
+            $("#create_need").click(function (e) {
+                window.location = "http://localhost:3000/createneed?username=" + username;
+            });
+
+        });
+
+        function addPledgeData(data) {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8000/rest/addpledge", // TODO.. update URL
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                crossDomain: true,
+                dataType: "json",
+                success: function (data, status, jqXHR) {
+                    alert("Pledge data updated successfully");
+                },
+                error: function (jqXHR, status) {
+                    // error handler
+                    console.log(jqXHR);
+                    alert('failed while adding pledge data');
+                }
+            });
+        }
+
+    </script>
+
+</head>
+
+<body class="body">
+    <div id="header" class="header">
+        NGO Collaboration System - Active Needs
+    </div>
+    <br/>
+
+    <div>
+        <table id="dashtable" data-role="table" border="1" style="width: 100%" class="dashboardTable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Created By</th>
+                    <th>Created Date</th>
+                    <th>Category</th>
+                    <th>Quanity Required</th>
+                    <th>Quanity Remaining</th>
+                    <th>Expected Date of Fullfillment</th>
+                    <th>Pledge</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i<needs.length; i++){ %>
+                    <tr>
+                        <td>
+                            <%= needs[i].id %>
+                        </td>
+                        <td>
+                            <%= needs[i].created_by %>
+                        </td>
+                        <td>
+                            <%= needs[i].created_date %>
+                        </td>
+                        <td>
+                            <%= needs[i].category %>
+                        </td>
+                        <td>
+                            <%= needs[i].quantity_required %>
+                        </td>
+                        <td>
+                            <%= needs[i].quantity_remaining %>
+                        </td>
+                        <td>
+                            <%= needs[i].expected_date_of_fullfillment %>
+                        </td>
+                        <td>
+                            <input type="button" value="Pledge" id="pledge" needid=<%=needs[i].id %> />
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <table style="height: 20px;">
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+        <div style="width: 100%; text-align: center">
+            <input type="button" value="Create a new Need" id="create_need" />
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <title>Javascript Login Form Validation</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+
+</head>
+<script>
+    var username = window.location.search.substring(1).split("=")[1];
+    var selected_val;
+
+
+    $(document).ready(function () {
+        $("#save").click(function (e) {
+            var quantity = $("#quantity").val();
+            var selected_val = $("#cat_select option:selected").val();
+            var date_fulfil = $("#dateofff").val();
+
+            alert("Entered values are: Quantity: " + quantity + ", Category: " + selected_val + ", Date OFF: " + date_fulfil + ", User: " + username);
+
+            // TODO.. Call API to create a need
+        });
+    });
+</script>
+
+<body class="body">
+    <div class="container">
+        <div class="main">
+            <div id="header" class="header">
+                NGO Collaboration System - Create Need
+            </div>
+            <br>
+            <form id="form_id" method="post" name="myform">
+                Select Category:
+                <select id="cat_select">
+                    <option value="Cat1">Cat1</option>
+                    <option value="Cat2">Cat2</option>
+                    <option value="Cat3">Cat3</option>
+                    <option value="Other">Other</option>
+                </select>
+                <br>
+                <br> Enter Quantity:
+                <input type="text" name="Quantity" id="quantity" />
+                <br>
+                <br> Expected date of fulfillment:
+                <input type="text" name="dateofff" id="dateofff" />
+                <br><br><br>
+                <input type="button" value="save" id="save" />
+            </form>
+            <br>
+
+        </div>
+    </div>
+</body>
+
+</html>

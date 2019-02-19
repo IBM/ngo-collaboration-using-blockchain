@@ -1,0 +1,67 @@
+<html>
+
+<head>
+    <title>NGO Collaboration System</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+
+</head>
+<script>
+    $(document).ready(function () {
+        $("#login-submit").click(function (e) {
+            var isValid = validate($("#username").val(), $("#password").val());
+            if (!isValid) {
+                alert("Invalid username or password");
+            }
+        });
+    });
+
+    function validate(username, password) {
+        var creds = {};
+        creds["user1"] = "password1";
+        creds["user2"] = "password2";
+        creds["u"] = "p";
+        if (password === creds[username]) {
+            window.location = "http://localhost:3000/dashboard?username=" + username;
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+<body class="body">
+
+    <div class="container">
+        <div class="row">
+            <div class="main" style="width: 30%">
+                <div id="header" class="header">
+                    NGO Collaboration System - Login
+                </div>
+                <br>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form id="form_id" method="post" name="myform" style="display: block;">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                </div>
+                                <input type="button" value="Login" id="login-submit" />
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>

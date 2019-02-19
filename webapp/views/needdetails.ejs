@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <title>NGO Collaboration System</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+
+</head>
+<script>
+    var data = [];
+    data
+    $(document).ready(function () {
+        var params = window.location.search.substring(1);
+        var username = params.split("&")[0].split("=")[1];
+        var needid = params.split("&")[1].split("=")[1];
+        var createdby = params.split("&")[2].split("=")[1];
+        var requiredqty = params.split("&")[3].split("=")[1];
+
+        $("#overviewdiv").append("<b>Need Id:</b> " + needid);
+        $("#overviewdiv").append("<br>");
+        $("#overviewdiv").append("<b>Created By:</b> " + createdby);
+        $("#overviewdiv").append("<br>");
+        $("#overviewdiv").append("<b>Username:</b> " + username);
+        $("#overviewdiv").append("<br>");
+        $("#overviewdiv").append("<b>Required Quantity:</b> " + requiredqty);
+        $("#overviewdiv").append("<br>");
+        $("#overviewdiv").append("<br>");
+        // Get data for need details.. may be call a rest service.. TODO
+
+        $("#goto_dashboard").click(function (e) {
+            window.location = "http://localhost:3000/dashboard";
+        });
+
+    });
+
+</script>
+
+<body class="body">
+    <div class="container">
+        <div class="main">
+            <div id="header" class="header">
+                NGO Collaboration System - Need Details
+            </div>
+
+            <br>
+            <div id="overviewdiv"></div>
+            <table id="pledgestable" data-role="table" border="1" style="width: 50%">
+                <thead>
+                    <tr>
+                        <th>Pledge Id</th>
+                        <th>Quantity</th>
+                        <th>Pledged By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i=0; i<pledgesdata.length; i++){ %>
+                        <tr>
+                            <td>
+                                <%= pledgesdata[i].pledgeid %>
+                            </td>
+                            <td>
+                                <%= pledgesdata[i].qty %>
+                            </td>
+                            <td>
+                                <%= pledgesdata[i].user %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <input type="button" value="Go back to Dashboard" id="goto_dashboard" />
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+.body {
+  height: 500px;
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  margin-top: 5px;
+  font-size: 22px;
+  height: 40px;
+  width: 960px;
+  background-color: #1E90FF;
+  color: white;
+  padding-left: 5px;
+  text-align: center;
+}
+
+.tabs {
+  height: 550px;
+  width: 960px;
+}
+
+.tabContainer {
+  height: 440px;
+  width: 100%;
+}
+
+.wrapper {
+  height: 50%;
+  width: 100%;
+  /* border:1px solid black; */
+}
+
+.wrapper1 {
+  height: 50%;
+  width: 100%;
+  display: none;
+  /* border:1px solid black; */
+}
+
+.predictedNeedTable {
+  height: 50%;
+  width: 100%;
+  display: none;
+  /* border:1px solid black; */
+}
+
+.buttonPanel {
+  height: 6%;
+  width: 100%;
+  text-align: center;
+  /* border:1px solid black; */
+}
+
+.ngocollabcontainer {
+  border: 1px solid green;
+  height: 100%;
+  width: 32%;
+  /* margin: 10px; */
+  display: none;
+}
+
+.gobutton {
+  background-color: #e7e7e7;
+  color: black;
+  width: 80px;
+  height: 24px;
+}
+
+select {
+  width: 200px;
+}
+
+img {
+  max-width: 100%;
+  max-height: 90%;
+  display: block;
+}
+
+.selectedRow {
+  background-color: lightskyblue;
+}
+
+.needContainer {
+  height: 100%;
+  width: 20%;
+  float: left;
+  /* padding: 2px; */
+  display: none;
+  border: 1px solid green;
+}
+
+.pledgeStatus {
+  height: 100%;
+  width: 20%;
+  float: left;
+  padding: 10px;
+  margin-left: 2px;
+  display: none;
+  border: 1px solid green;
+}
+
+th, td {
+  text-align: center
+}
+
+.dashboardTable {
+  float: right;
+  margin-left: 2px;
+  /* padding: 2px; */
+  /*display: none;*/
+  border: 1px solid black;
+  table-layout: auto;
+}
+
+.boldlabel {
+  font-weight: bold;
+}
