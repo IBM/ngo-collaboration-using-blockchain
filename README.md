@@ -13,6 +13,7 @@ This composite pattern demonstrates a solution to this problem using a combinati
 
 When the reader has completed this Code Pattern, they will understand how to:
 
-- Setup blockchain Network on Kubernetes
+- [Setup blockchain Network on Kubernetes](https://github.com/IBM/blockchain-network-on-kubernetes)
 - Build a client app
-- Interact with blockchain network from client app using Fabric Java SDK
+- [Interact with blockchain network using Fabric Java SDK](https://github.com/IBM/blockchain-application-using-fabric-java-sdk)
+
