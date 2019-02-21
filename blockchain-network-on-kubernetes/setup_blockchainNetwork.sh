@@ -156,7 +156,7 @@ while [ "${JOBSTATUS}" != "1" ]; do
     JOBSTATUS=$(kubectl get jobs |grep createchannel |awk '{print $3}')
 done
 echo "Create Channel Completed Successfully"
-exit
+
 
 # Join all peers on a channel
 echo -e "\nCreating joinchannel job"

@@ -21,7 +21,7 @@ spec:
         command: ["sh", "-c", "echo $GOPATH; cp -r /shared/artifacts/chaincode $GOPATH/src/; ls $GOPATH/src; peer chaincode install -n ${CHAINCODE_NAME} -v ${CHAINCODE_VERSION} -p ngo_collaboration/"]
         env:
         - name: CHAINCODE_NAME
-          value: "cc"
+          value: "ngo"
         - name: CHAINCODE_VERSION
           value: "1.0"
         - name: FABRIC_CFG_PATH
@@ -44,7 +44,7 @@ spec:
         command: ["sh", "-c", "echo $GOPATH; cp -r /shared/artifacts/chaincode $GOPATH/src/; ls $GOPATH/src; peer chaincode install -n ${CHAINCODE_NAME} -v ${CHAINCODE_VERSION} -p ngo_collaboration/"]
         env:
         - name: CHAINCODE_NAME
-          value: "cc"
+          value: "ngo"
         - name: CHAINCODE_VERSION
           value: "1.0"
         - name: FABRIC_CFG_PATH
@@ -67,7 +67,7 @@ spec:
         command: ["sh", "-c", "echo $GOPATH; cp -r /shared/artifacts/chaincode $GOPATH/src/; ls $GOPATH/src; peer chaincode install -n ${CHAINCODE_NAME} -v ${CHAINCODE_VERSION} -p ngo_collaboration/"]
         env:
         - name: CHAINCODE_NAME
-          value: "cc"
+          value: "ngo"
         - name: CHAINCODE_VERSION
           value: "1.0"
         - name: FABRIC_CFG_PATH
@@ -90,7 +90,7 @@ spec:
         command: ["sh", "-c", "echo $GOPATH; cp -r /shared/artifacts/chaincode $GOPATH/src/; ls $GOPATH/src; peer chaincode install -n ${CHAINCODE_NAME} -v ${CHAINCODE_VERSION} -p ngo_collaboration/"]
         env:
         - name: CHAINCODE_NAME
-          value: "cc"
+          value: "ngo"
         - name: CHAINCODE_VERSION
           value: "1.0"
         - name: FABRIC_CFG_PATH

@@ -18,14 +18,13 @@
  */
 
 /*
- * The sample smart contract for documentation topic:
- * Writing Your First Blockchain Application
+ * The smart contract for NGO Collaboration Solution
  */
 
 package main
 
 /* Imports
- * 4 utility libraries for formatting, handling bytes, reading and writing JSON, and string manipulation
+ * utility libraries for formatting, handling bytes, reading and writing JSON, and string manipulation
  * 2 specific Hyperledger Fabric specific libraries for Smart Contracts
  */
 import (
@@ -44,12 +43,6 @@ import (
 type SmartContract struct {
 }
 
-// type Warning struct {
-// 	WarningID string `json:"warning_id"`
-// 	Warning string `json:"warning_description"`
-// 	Region string `json:"region"`
-// }
-
 // Define the need structure. Structure tags are used by encoding/json library
 type Need struct {
 	NeedID string `json:"need_id"`
@@ -61,8 +54,6 @@ type Need struct {
 	PledgedIDs []string `json:"pledged_ids"`
 	ExpectedFulfilmentDate string `json:"expected_fulfilment_date"`
 	Status string `json:"need_status"`
-	// ExpectedFulfilmentDate time.Time `json:"expected_fulfilment_date"`
-	//FulfilmentDate string `json:"fulfilment_date"`
 }
 
 type Pledge struct {
@@ -71,17 +62,7 @@ type Pledge struct {
 	PledgedQuantity int `json:"pledged_quantity"`
 	PledgedBy string `json:"pledged_by"`
 	Status string `json:"status"`
-	//PledgedDate string `json:"pledged_date"`
-	//DeliveredDate string `json:"delivered_by"`
 }
-
-// type Delivery struct {
-// 	DeliveryID string `json:"delivery_id"`
-// 	Status string `json:"status"`
-// 	CurrentLocation string `json:"current_location"`
-// 	ExpectedDeliveryDate string `json:"expected_delivery_date"`
-// 	ActualDeliveryDate string `json:"actual_delivery_date"`
-// }
 
 /*
  * The Init method is called when the Smart Contract "disastermgmt" is instantiated by the blockchain network
@@ -178,10 +159,7 @@ func (s *SmartContract) createPledge(APIstub shim.ChaincodeStubInterface, args [
 	need := Need{}
 
 	json.Unmarshal(needAsBytes, &need)
-	// existingVal, _ = strconv.Atoi(need.PledgedQuantity)
-	// newVal, _ = strconv.Atoi(args[2])
-	//var existingVal = strconv.ParseInt(need.PledgedQuantity, 16,32)
-	//var newVal = strconv.ParseInt(args[2], 16,32)
+
 	existingVal = need.PledgedQuantity
 	newVal = existingVal + pledgedQuantity
 
@@ -211,7 +189,6 @@ func (s *SmartContract) queryAllActiveNeeds(APIstub shim.ChaincodeStubInterface,
 
 	var date1 []string
 	var date2 []string
-	// var date1Date, date1Month, date1Year, date2Date, date2Month, date2Year int
 	var activeNeeds []Need
 
 	resultsIterator, err := APIstub.GetStateByRange(startKey, endKey)
@@ -223,25 +200,6 @@ func (s *SmartContract) queryAllActiveNeeds(APIstub shim.ChaincodeStubInterface,
 	f := func(c rune) bool {
 		return !unicode.IsLetter(c) && !unicode.IsNumber(c)
 	}
-	//fmt.Printf("Fields are: %q", strings.FieldsFunc("29-Jan-2018",f))
-	// date1 = strings.FieldsFunc(needDetails.Value.ExpectedFulfilmentDate,f)
-	// date2 = strings.FieldsFunc(args[0],f)
-
-	// date1Date = strconv.Atoi(date1[0])
-	// date1Month = strconv.Atoi(date1[1])
-	// date1Year = strconv.Atoi(date1[2])
-
-	// date2Date = strconv.Atoi(date2[0])
-	// date2Month = strconv.Atoi(date2[1])
-	// date2Year = strconv.Atoi(date2[2])
-
-	// if date2Year > date1Year && needDetails.Value.Status == "Open" {
-
-	// } else if date2Year == date1Year && date2Month > date1Month && needDetails.Value.Status == "Open" {
-
-	// } else if date2Year == date1Year && date2Month == date1Month && date2Date >= date1Date && needDetails.Value.Status == "Open"{
-
-	// }
 
 	for resultsIterator.HasNext() {
 		needDetails, err := resultsIterator.Next()
@@ -272,41 +230,10 @@ func (s *SmartContract) queryAllActiveNeeds(APIstub shim.ChaincodeStubInterface,
 			activeNeeds = append(activeNeeds, need)
 		}
 	}
-	//fmt.Printf("- queryAllActiveNeeds:\n%s\n", activeNeeds.length())
-	//defer activeNeedsIterator.Close()
+	
 	//change to array of bytes
 	everythingAsBytes, _ := json.Marshal(activeNeeds) 
 	return shim.Success(everythingAsBytes)
-	// buffer is a JSON array containing QueryResults
-	// var buffer bytes.Buffer
-	// buffer.WriteString("[")
-
-	// bArrayMemberAlreadyWritten := false
-	// for activeNeedsIterator.HasNext() {
-	// 	queryResponse, err := activeNeedsIterator.Next()
-	// 	if err != nil {
-	// 		return shim.Error(err.Error())
-	// 	}
-	// 	// Add a comma before array members, suppress it for the first array member
-	// 	if bArrayMemberAlreadyWritten == true {
-	// 		buffer.WriteString(",")
-	// 	}
-	// 	buffer.WriteString("{\"Key\":")
-	// 	buffer.WriteString("\"")
-	// 	buffer.WriteString(queryResponse.Key)
-	// 	buffer.WriteString("\"")
-
-	// 	buffer.WriteString(", \"Record\":")
-	// 	// Record is a JSON object, so we write as-is
-	// 	buffer.WriteString(string(queryResponse.Value))
-	// 	buffer.WriteString("}")
-	// 	bArrayMemberAlreadyWritten = true
-	// }
-	// buffer.WriteString("]")
-
-	// fmt.Printf("- queryAllActiveNeeds:\n%s\n", buffer.String())
-
-	// return shim.Success(buffer.Bytes())
 }
 
 func (s *SmartContract) queryAllPastNeeds(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
@@ -316,7 +243,6 @@ func (s *SmartContract) queryAllPastNeeds(APIstub shim.ChaincodeStubInterface, a
 
 	var date1 []string
 	var date2 []string
-	// var date1Date, date1Month, date1Year, date2Date, date2Month, date2Year int
 	var pastNeeds []Need
 
 	resultsIterator, err := APIstub.GetStateByRange(startKey, endKey)
@@ -358,8 +284,7 @@ func (s *SmartContract) queryAllPastNeeds(APIstub shim.ChaincodeStubInterface, a
 			pastNeeds = append(pastNeeds, need)
 		}
 	}
-	//fmt.Printf("- queryAllActiveNeeds:\n%s\n", activeNeeds.length())
-	//defer activeNeedsIterator.Close()
+
 	//change to array of bytes
 	everythingAsBytes, _ := json.Marshal(pastNeeds) 
 	return shim.Success(everythingAsBytes)
@@ -417,7 +342,6 @@ func (s *SmartContract) queryAllPledgesForNeed(APIstub shim.ChaincodeStubInterfa
 	if err != nil {
 		return shim.Error(err.Error())
 	}
-	// needAsBytes := getNeed.Value
 
 	var need Need
 	json.Unmarshal(needAsBytes, &need)
