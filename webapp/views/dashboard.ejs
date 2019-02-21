@@ -35,6 +35,9 @@
             $("#create_need").click(function (e) {
                 window.location = "http://localhost:3000/createneed?username=" + username;
             });
+            $("#past_needs").click(function (e) {
+                window.location = "http://localhost:3000/pastneeds";
+            });
 
         });
 
@@ -118,6 +121,7 @@
             </tr>
         </table>
         <div style="width: 100%; text-align: center">
+            <input type="button" value="Past Needs" id="past_needs" />
             <input type="button" value="Create a new Need" id="create_need" />
         </div>
     </div>

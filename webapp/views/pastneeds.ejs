@@ -1,0 +1,81 @@
+<html>
+
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+
+    <script>
+        var data = {};
+        $(document).ready(function () {
+            $("#goto_dashboard").click(function (e) {
+                window.location = "http://localhost:3000/dashboard";
+            });
+        });
+    </script>
+
+</head>
+
+<body class="body">
+    <div id="header" class="header">
+        NGO Collaboration System - Past Needs
+    </div>
+    <br/>
+
+    <div>
+        <table id="dashtable" data-role="table" border="1" style="width: 100%" class="dashboardTable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Created By</th>
+                    <th>Created Date</th>
+                    <th>Category</th>
+                    <th>Quanity Required</th>
+                    <th>Quanity Remaining</th>
+                    <th>Expected Date of Fullfillment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i<needs.length; i++){ %>
+                    <tr>
+                        <td>
+                            <%= needs[i].id %>
+                        </td>
+                        <td>
+                            <%= needs[i].created_by %>
+                        </td>
+                        <td>
+                            <%= needs[i].created_date %>
+                        </td>
+                        <td>
+                            <%= needs[i].category %>
+                        </td>
+                        <td>
+                            <%= needs[i].quantity_required %>
+                        </td>
+                        <td>
+                            <%= needs[i].quantity_remaining %>
+                        </td>
+                        <td>
+                            <%= needs[i].expected_date_of_fullfillment %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+    <table>
+        <tr>
+            <td> </td>
+        </tr>
+    </table>
+    <div style="text-align: right">
+        <input type="button" value="Go back to Dashboard" id="goto_dashboard" />
+    </div>
+
+</body>
+
+</html>
