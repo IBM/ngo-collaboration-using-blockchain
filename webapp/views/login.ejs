@@ -34,34 +34,21 @@
 </script>
 
 <body class="body">
-
-    <div class="container">
-        <div class="row">
-            <div class="main" style="width: 30%">
-                <div id="header" class="header">
-                    NGO Collaboration System - Login
-                </div>
-                <br>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form id="form_id" method="post" name="myform" style="display: block;">
-                                <div class="form-group">
-                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-                                </div>
-                                <input type="button" value="Login" id="login-submit" />
-
-                            </form>
-                        </div>
+    <div id="header" class="header">
+        NGO Collaboration Platform
+    </div>
+    <br>
+    <div class="form">
+                <form id="form_id" method="post" name="myform" style="display: block;">
+                    <div class="form-group">
+                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                    </div>
+                    <input type="button" value="Login" class="loginButton" id="login-submit" />
+                </form>
     </div>
 </body>
-
 
 </html>
