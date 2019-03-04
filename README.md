@@ -22,6 +22,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 # Watch the Video
 
+
 # Pre-requisites
 
 # Steps
@@ -30,4 +31,9 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 # Learn More
 
+- [Track donations with Blockchain](https://developer.ibm.com/patterns/track-donations-blockchain/)
+
+<!-- keep this -->
 ## License
+
+[Apache 2.0](LICENSE)
