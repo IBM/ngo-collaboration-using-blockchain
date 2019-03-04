@@ -9,7 +9,7 @@ When there is a person/organization in need, they approach NGO for help. But all
 
 Hence here is a blockchain based solution for NGO collaboration, in which NGOs with a diverse/same portfolios can come forward and be a part of consortium. When one approaches an NGO with some need (say books for education), that NGO can not help for this need or it can not be fulfilled by that NGO alone, then that NGO will create a new request in the network. All other NGOs whoever can contribute will update the request over the blockchain network. This network will give the holistic view of the requirement and its current status. This way a need is catered to in an efficient manner. The problems of over collection or under collection for a need is reduced. The platform brings in trust, accountability and transparency of operations between NGOs.
 
-This composite pattern demonstrates a solution to this problem using a combination of other individual code patterns.
+This composite pattern demonstrates a solution using a combination of other individual code patterns.
 
 When the reader has completed this Code Pattern, they will understand how to:
 
