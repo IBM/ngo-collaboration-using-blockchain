@@ -10,11 +10,17 @@
 
     <script>
         var data = {};
+        var username = window.location.search.substring(1).split("=")[1];
         $(document).ready(function () {
             $("#goto_dashboard").click(function (e) {
                 window.location = "http://localhost:3000/dashboard";
             });
+            $("#back_to_home_page").click(function (e) {
+                window.location = "http://localhost:3000/menu?username=" + username;
+            });
         });
+
+
     </script>
 
 </head>
@@ -73,7 +79,7 @@
         </tr>
     </table>
     <div style="text-align: right">
-        <input type="button" value="Go back to Dashboard" id="goto_dashboard" />
+        <input type="button" value="Back to home page" id="back_to_home_page" />
     </div>
 
 </body>

@@ -31,8 +31,8 @@
         $("#overviewdiv").append("<br>");
         // Get data for need details.. may be call a rest service.. TODO
 
-        $("#goto_dashboard").click(function (e) {
-            window.location = "http://localhost:3000/dashboard";
+        $("#back_to_home_page").click(function (e) {
+            window.location = "../menu?username=" + username;
         });
 
     });
@@ -74,7 +74,7 @@
             </table>
             <br>
             <br>
-            <input type="button" value="Go back to Dashboard" id="goto_dashboard" />
+            <input type="button" value="Back to home page" id="back_to_home_page" />
         </div>
     </div>
     </div>

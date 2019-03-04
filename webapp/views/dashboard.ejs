@@ -28,15 +28,12 @@
                     var createdby = $(this).closest('tr').find('td:eq(1)').text().trim();
                     var requiredqty = $(this).closest('tr').find('td:eq(4)').text().trim();
                     // open a new page with need details
-                    window.location = "http://localhost:3000/needdetails?username=" + username + "&needid=" + needid + "&createdby=" + createdby + "&requiredqty=" + requiredqty;
+                    window.location = "../needdetails?username=" + username + "&needid=" + needid + "&createdby=" + createdby + "&requiredqty=" + requiredqty;
                 }
             });
 
-            $("#create_need").click(function (e) {
-                window.location = "http://localhost:3000/createneed?username=" + username;
-            });
-            $("#past_needs").click(function (e) {
-                window.location = "http://localhost:3000/pastneeds";
+            $("#back_to_home_page").click(function (e) {
+                window.location = "../menu?username=" + username;
             });
 
         });
@@ -44,7 +41,7 @@
         function addPledgeData(data) {
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/rest/addpledge", // TODO.. update URL
+                url: "../rest/addpledge", // TODO.. update URL
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 crossDomain: true,
@@ -125,8 +122,7 @@
             </tr>
         </table>
         <div style="width: 100%; text-align: center">
-            <input type="button" value="Past Needs" id="past_needs" />
-            <input type="button" value="Create a new Need" id="create_need" />
+            <input type="button" value="Back to home page" id="back_to_home_page" />
         </div>
     </div>
 
