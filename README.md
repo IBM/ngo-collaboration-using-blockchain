@@ -17,3 +17,17 @@ When the reader has completed this Code Pattern, they will understand how to:
 - Build a client app
 - [Interact with blockchain network using Fabric Java SDK](https://github.com/IBM/blockchain-application-using-fabric-java-sdk)
 
+# Flow
+
+
+# Watch the Video
+
+# Pre-requisites
+
+# Steps
+
+# Troubleshooting
+
+# Learn More
+
+## License
