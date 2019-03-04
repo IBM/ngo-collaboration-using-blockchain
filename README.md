@@ -27,6 +27,31 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 # Steps
 
+Follow these steps to setup and run this code pattern. The steps are described in detail below.
+
+1. [Get the code](#1-get-the-code)
+2. [Deploy Hyperledger Fabric Network using Kubernetes on IBM Cloud](#2-deploy-hyperledger-fabric-network-using-kubernetes-on-ibm-cloud)
+3. [Build the client based on Fabric Java SDK]()
+4. [Deploy as REST APIs]()
+5. [Build and deploy client app]()
+6. [Analyze the Results]()
+
+## 1. Get the code
+
+- Clone the repo using the below command.
+   ```
+   git clone https://github.com/IBM/ngo-collaboration-using-blockchain
+   ```
+
+ - In this repository, 
+    * [Network setup](https://github.com/IBM/ngo-collaboration-using-blockchain/tree/master/blockchain-network-on-kubernetes): configuration files and scripts to deploy Hyperledger Fabric network using Kubernetes on IBM Cloud.
+    * [Integration code using Fabric Java SDK](https://github.com/IBM/ngo-collaboration-using-blockchain/tree/master/fabric-java-sdk-app)
+    * [Client application code](https://github.com/IBM/ngo-collaboration-using-blockchain/tree/master/webapp)
+    
+    
+## 2. Deploy Hyperledger Fabric Network using Kubernetes on IBM Cloud
+
+
 # Troubleshooting
 
 # Learn More
