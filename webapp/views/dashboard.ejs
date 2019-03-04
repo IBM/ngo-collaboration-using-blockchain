@@ -66,17 +66,21 @@
 
 <body class="body">
     <div id="header" class="header">
-        NGO Collaboration System - Active Needs
+        NGO Collaboration System
     </div>
     <br/>
-
+    
+    <div id="header2" class="header2">
+        Active Needs
+    </div>
+    <p></p>
     <div>
-        <table id="dashtable" data-role="table" border="1" style="width: 100%" class="dashboardTable">
+        <table id="dashtable" data-role="table" border="1" class="dashboardTable">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>Need ID</th>
                     <th>Created By</th>
-                    <th>Created Date</th>
+                    <th>Created On</th>
                     <th>Category</th>
                     <th>Quanity Required</th>
                     <th>Quanity Remaining</th>
@@ -109,7 +113,7 @@
                             <%= needs[i].expected_date_of_fullfillment %>
                         </td>
                         <td>
-                            <input type="button" value="Pledge" id="pledge" needid=<%=needs[i].id %> />
+                            <input type="button" value="Pledge" id="pledge" class="pledgeButton" needid=<%=needs[i].id %> />
                         </td>
                     </tr>
                     <% } %>
