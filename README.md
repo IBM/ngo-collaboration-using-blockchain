@@ -13,9 +13,9 @@ This composite pattern demonstrates a solution using a combination of other indi
 
 When the reader has completed this Code Pattern, they will understand how to:
 
-- [Setup blockchain Network on Kubernetes](https://github.com/IBM/blockchain-network-on-kubernetes)
-- [Interact with blockchain network using Fabric Java SDK](https://github.com/IBM/blockchain-application-using-fabric-java-sdk)
-- Build a client application 
+- Setup blockchain Network on Kubernetes
+- Interact with blockchain network using Fabric Java SDK
+- Build a client application which will interact with blockchain network with the help of SDK
 
 # Flow
 
