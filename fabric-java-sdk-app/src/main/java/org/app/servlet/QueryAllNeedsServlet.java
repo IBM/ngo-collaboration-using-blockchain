@@ -1,0 +1,128 @@
+/****************************************************** 
+ *  Copyright 2019 IBM Corporation 
+ *  Licensed under the Apache License, Version 2.0 (the "License"); 
+ *  you may not use this file except in compliance with the License. 
+ *  You may obtain a copy of the License at 
+ *  http://www.apache.org/licenses/LICENSE-2.0 
+ *  Unless required by applicable law or agreed to in writing, software 
+ *  distributed under the License is distributed on an "AS IS" BASIS, 
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ *  See the License for the specific language governing permissions and 
+ *  limitations under the License.
+ */ 
+
+package org.app.servlet;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.app.client.CAClient;
+import org.app.client.ChannelClient;
+import org.app.client.FabricClient;
+import org.app.config.ConfigNetwork;
+import org.app.user.UserContext;
+import org.app.util.Util;
+import org.hyperledger.fabric.sdk.Channel;
+import org.hyperledger.fabric.sdk.Orderer;
+import org.hyperledger.fabric.sdk.Peer;
+import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.json.JSONObject;
+
+/**
+ * Servlet implementation class QueryAllNeedsServlet
+ */
+@WebServlet("/QueryAllNeedsServlet")
+public class QueryAllNeedsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public QueryAllNeedsServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			StringBuilder sb = new StringBuilder();
+			String s;
+			while ((s = request.getReader().readLine()) != null) {
+				sb.append(s);
+			}
+			Logger.getLogger(getServletName()).log(Level.INFO, "Received configuration - " + sb.toString());
+
+			String res = queryAllNeeds();
+			response.getWriter().append(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+	private static String queryAllNeeds() {
+		String stringResponse = "";
+		try {
+			Util.cleanUp();
+			String caUrl = ConfigNetwork.CA_ORG1_URL;
+			CAClient caClient = new CAClient(caUrl, null);
+			// Enroll Admin to Org1MSP
+			UserContext adminUserContext = new UserContext();
+			adminUserContext.setName(org.app.config.ConfigNetwork.ADMIN);
+			adminUserContext.setAffiliation(ConfigNetwork.ORG1);
+			adminUserContext.setMspId(ConfigNetwork.ORG1_MSP);
+			caClient.setAdminUserContext(adminUserContext);
+			adminUserContext = caClient.enrollAdminUser(ConfigNetwork.ADMIN, ConfigNetwork.ADMIN_PASSWORD);
+
+			FabricClient fabClient = new FabricClient(adminUserContext);
+
+			ChannelClient channelClient = fabClient.createChannelClient(ConfigNetwork.CHANNEL_NAME);
+			Channel channel = channelClient.getChannel();
+			Peer peer = fabClient.getInstance().newPeer(ConfigNetwork.ORG1_PEER_1, ConfigNetwork.ORG1_PEER_1_URL);
+			Orderer orderer = fabClient.getInstance().newOrderer(ConfigNetwork.ORDERER_NAME, ConfigNetwork.ORDERER_URL);
+			channel.addPeer(peer);
+			channel.addOrderer(orderer);
+			channel.initialize();
+
+			Logger.getLogger(QueryAllNeedsServlet.class.getName()).log(Level.INFO, "Querying for all needs ...");
+			Collection<ProposalResponse> responsesQuery = channelClient.queryByChainCode(ConfigNetwork.CHAINCODE_1_NAME,
+					"queryAllNeeds", null);
+			for (ProposalResponse pres : responsesQuery) {
+				stringResponse = new String(pres.getChaincodeActionResponsePayload());
+				Logger.getLogger(QueryAllNeedsServlet.class.getName()).log(Level.INFO, stringResponse);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return stringResponse;
+	}
+
+	//Test code
+	public static void main(String[] args) {
+		queryAllNeeds();
+	}
+
+}

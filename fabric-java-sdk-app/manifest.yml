@@ -1,0 +1,6 @@
+ applications:
+  - name: ngo-collaboration-java-app
+    random-route: true
+    memory: 256M
+    path: target/ngo-collaboration-java.war
+    buildpack: java_buildpack
