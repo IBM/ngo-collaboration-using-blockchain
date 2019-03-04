@@ -3,4 +3,4 @@
     random-route: true
     memory: 256M
     path: target/ngo-collaboration-java.war
-    buildpack: java_buildpack
+    buildpack: liberty-for-java
