@@ -80,7 +80,7 @@
                     <th>Created On</th>
                     <th>Category</th>
                     <th>Quanity Required</th>
-                    <th>Quanity Remaining</th>
+                    <th>Pledged Qty</th>
                     <th>Expected Date of Fullfillment</th>
                     <th>Pledge</th>
                 </tr>
@@ -89,7 +89,7 @@
                 <% for (var i=0; i<needs.length; i++){ %>
                     <tr>
                         <td>
-                            <%= needs[i].id %>
+                            <%= needs[i].need_id %>
                         </td>
                         <td>
                             <%= needs[i].created_by %>
@@ -98,16 +98,16 @@
                             <%= needs[i].created_date %>
                         </td>
                         <td>
-                            <%= needs[i].category %>
+                            <%= needs[i].need_category %>
                         </td>
                         <td>
-                            <%= needs[i].quantity_required %>
+                            <%= needs[i].quantity %>
                         </td>
                         <td>
-                            <%= needs[i].quantity_remaining %>
+                            <%= needs[i].pledged %>
                         </td>
                         <td>
-                            <%= needs[i].expected_date_of_fullfillment %>
+                            <%= needs[i].expected_fulfilment_date %>
                         </td>
                         <td>
                             <input type="button" value="Pledge" id="pledge" class="pledgeButton" needid=<%=needs[i].id %> />

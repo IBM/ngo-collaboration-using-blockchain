@@ -25,6 +25,9 @@
 
             // TODO.. Call API to create a need
         });
+        $("#back_to_home_page").click(function (e) {
+            window.location = "../menu?username=" + username;
+        });
     });
 </script>
 
@@ -36,21 +39,48 @@
             </div>
             <br>
             <form id="form_id" method="post" name="myform">
-                Select Category:
-                <select id="cat_select">
-                    <option value="Cat1">Cat1</option>
-                    <option value="Cat2">Cat2</option>
-                    <option value="Cat3">Cat3</option>
-                    <option value="Other">Other</option>
-                </select>
+                <table style="border-spacing: 2cm">
+                    <tr>
+                        <td style="text-align: left">
+                            Select Category:
+                        </td>
+                        <td>
+                            <select id="cat_select" style="width: 100%">
+                                <option value="Cat1">Cat1</option>
+                                <option value="Cat2">Cat2</option>
+                                <option value="Cat3">Cat3</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            Enter Quantity:
+                        </td>
+                        <td>
+                            <input type="text" name="Quantity" id="quantity" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            Expected date of fulfillment:
+                        </td>
+                        <td>
+                            <input type="text" name="dateofff" id="dateofff" />
+                        </td>
+                    </tr>
+                </table>
                 <br>
-                <br> Enter Quantity:
-                <input type="text" name="Quantity" id="quantity" />
-                <br>
-                <br> Expected date of fulfillment:
-                <input type="text" name="dateofff" id="dateofff" />
-                <br><br><br>
-                <input type="button" value="save" id="save" />
+                <table style="width: 40%">
+                    <tr>
+                        <td style="text-align: left">
+                            <input style="text-align: left" type="button" class="pledgeButton" value="Back to Home Page" id="back_to_home_page" />
+                        </td>
+                        <td>
+                            <input style="text-align: right" type="button" class="pledgeButton" value="Save" id="save" />
+                        </td>
+                    </tr>
+                </table>
             </form>
             <br>
 
