@@ -57,7 +57,7 @@ This composite pattern demonstrates a solution using a combination of other indi
 
 # Flow
 
-![CDB_Cognos](https://github.com/IBM/ngo-collaboration-using-blockchain/blob/master/images/architecture.png)
+![Architecture](https://github.com/IBM/ngo-collaboration-using-blockchain/blob/master/images/architecture.png)
 
 
 # Instructions
@@ -82,14 +82,15 @@ The steps will show you how to:
 
 # Runtimes
 
-[Liberty for Java](https://console.bluemix.net/catalog/starters/liberty-for-java): Develop, deploy, and scale Java web apps with ease. IBM WebSphere Liberty Profile is a highly composable, ultra-fast, ultra-light profile of IBM WebSphere Application Server designed for the cloud.
+* [Liberty for Java](https://console.bluemix.net/catalog/starters/liberty-for-java): Develop, deploy, and scale Java web apps with ease. IBM WebSphere Liberty Profile is a highly composable, ultra-fast, ultra-light profile of IBM WebSphere Application Server designed for the cloud.
 
-[SDK for Node.js](https://console.bluemix.net/catalog/starters/sdk-for-nodejs):Develop, deploy, and scale server-side JavaScript® apps with ease. The IBM SDK for Node.js™ provides enhanced performance, security, and serviceability.
+* [SDK for Node.js](https://console.bluemix.net/catalog/starters/sdk-for-nodejs):Develop, deploy, and scale server-side JavaScript® apps with ease. The IBM SDK for Node.js™ provides enhanced performance, security, and serviceability.
 
 # Related IBM Developer content
 
 * [Deploy Hyperledger Fabric network on IBM Cloud](https://github.com/IBM/blockchain-network-on-kubernetes)
 * [Create and deploy a blockchain network using Hyperledger Fabric SDK for Java](https://github.com/IBM/blockchain-application-using-fabric-java-sdk)
+* [Track donations with Blockchain](https://developer.ibm.com/patterns/track-donations-blockchain/)
 
 # Related links
 
