@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>NGO Collaboration System</title>
+    <title>NGO Collaboration Platform</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -20,7 +20,7 @@
         var createdby = params.split("&")[2].split("=")[1];
         var requiredqty = params.split("&")[3].split("=")[1];
 
-        $("#overviewdiv").append("<b>Need Id:</b> " + needid);
+        $("#overviewdiv").append("<b>Need ID:</b> " + needid);
         $("#overviewdiv").append("<br>");
         $("#overviewdiv").append("<b>Created By:</b> " + createdby);
         $("#overviewdiv").append("<br>");
@@ -40,18 +40,24 @@
 </script>
 
 <body class="body">
-    <div class="container">
-        <div class="main">
+
             <div id="header" class="header">
-                NGO Collaboration System - Need Details
+                NGO Collaboration Platform
             </div>
 
-            <br>
-            <div id="overviewdiv"></div>
-            <table id="pledgestable" data-role="table" border="1" style="width: 50%">
+            <br/>
+            <div id="header2" class="header2">
+                Need Details
+            </div>
+            <p></p>
+
+            <div id="overviewdiv">
+            </div>
+
+            <table id="pledgestable" data-role="table" border="1" class="dashboardTable">
                 <thead>
                     <tr>
-                        <th>Pledge Id</th>
+                        <th>Pledge ID</th>
                         <th>Quantity</th>
                         <th>Pledged By</th>
                     </tr>
@@ -72,12 +78,11 @@
                         <% } %>
                 </tbody>
             </table>
-            <br>
-            <br>
-            <input type="button" value="Back to home page" id="back_to_home_page" />
-        </div>
-    </div>
-    </div>
+            
+            <br/>
+            <div style="width: 100%; text-align: center">
+                    <input type="button" class="pledgeButton" value="Back to Home Page" id="back_to_home_page" />
+            </div>
 </body>
 
 </html>

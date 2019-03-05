@@ -27,17 +27,22 @@
 
 <body class="body">
     <div id="header" class="header">
-        NGO Collaboration System - Past Needs
+        NGO Collaboration Platform
     </div>
     <br/>
 
+    <div id="header2" class="header2">
+        Past Needs
+    </div>
+    <p></p>
+    
     <div>
-        <table id="dashtable" data-role="table" border="1" style="width: 100%" class="dashboardTable">
+        <table id="dashtable" data-role="table" border="1" class="dashboardTable">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>Need ID</th>
                     <th>Created By</th>
-                    <th>Created Date</th>
+                    <th>Created On</th>
                     <th>Category</th>
                     <th>Quanity Required</th>
                     <th>Quanity Remaining</th>
@@ -72,16 +77,12 @@
                     <% } %>
             </tbody>
         </table>
-    </div>
-    <table>
-        <tr>
-            <td> </td>
-        </tr>
-    </table>
-    <div style="text-align: right">
-        <input type="button" value="Back to home page" id="back_to_home_page" />
-    </div>
+        <br>
 
+        <div style="text-align: center">
+            <input type="button" class="pledgeButton" value="Back to Home Page" id="back_to_home_page" />
+        </div>
+    </div>
 </body>
 
 </html>

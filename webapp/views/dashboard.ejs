@@ -16,7 +16,7 @@
                 var needid = $(e.target).attr("needid");
                 if (needid) {
                     //alert($(e.target).attr("pledgeid"));
-                    var qty = prompt("How much can you pledge", "");
+                    var qty = prompt("Please provide the quantity you would like to pledge ", "");
                     alert("pledging quantity " + qty + " for needid " + needid);
                     data["need_id"] = needid;
                     data["pledge_qty"] = qty;
