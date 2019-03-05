@@ -55,7 +55,14 @@ Follow these steps to setup and run this code pattern. The steps are described i
 
 Here, we use the [Fabric Java SDK](https://github.com/hyperledger/fabric-sdk-java) to build a client to invoke and query chaincode on the hyperledger fabric network.
 
-Under the `ngo-collaboration-using-blockchain` directory, execute the below commands:
+The java source code for the app can be found under `fabric-java-sdk-app` directory. The first step is to specify the IP address of the Hyperledger deployment.
+
+Open the file `ConfigNetwork.java` under `src/main/java/org/app/config` directory. Enter the IP address.
+```
+public static final String IP = "xxx.xxx.xx.xxx";
+```
+
+Next, on the command terminal go to `ngo-collaboration-using-blockchain` directory, and execute the below commands:
 ```
 cd fabric-java-sdk-app
 mvn clean install
