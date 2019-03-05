@@ -44,16 +44,16 @@
 }
 
 .dashboardTable {
-  float: right;
+  float: left;
   margin-left: 2px;
   width: 100%;
   /* padding: 2px; */
   /*display: none;*/
   border: 1px solid black;
-  table-layout: auto;
+  /* table-layout: auto; */
 }
 
-.dashboardTable thead{
+.dashboardTable thead tr{
   height: 35px;
   background-color: #E0FFFF;
 }
@@ -87,6 +87,12 @@
   color: black;
   font-size: small;
   font-style: italic;
+}
+
+.homePageButton {
+  float: left;
+  height: 40px;
+  width: 100%;
 }
 .tabs {
   height: 550px;
