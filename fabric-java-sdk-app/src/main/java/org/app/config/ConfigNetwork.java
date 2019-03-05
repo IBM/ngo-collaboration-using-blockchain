@@ -20,7 +20,7 @@ package org.app.config;
  */
 public class ConfigNetwork {
 	
-	public static final String IP = "173.193.99.228";
+	public static final String IP = "xxx.xxx.xx.xxx"; // IP address of the Hyperledger Fabric Network Deployment on Kubernetes
 	
 	public static final String ORG1_MSP = "Org1MSP";
 
