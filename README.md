@@ -55,7 +55,7 @@ Follow these steps to setup and run this code pattern. The steps are described i
 
 Here, we use the [Fabric Java SDK](https://github.com/hyperledger/fabric-sdk-java) to build a client to invoke and query chaincode on the hyperledger fabric network.
 
-The java source code for the app can be found under `fabric-java-sdk-app` directory. The first step is to specify the public IP address of the Hyperledger deployment. The public IP address can be found on the `Kubernetes Dashboard`.
+The java source code for the client can be found under `fabric-java-sdk-app` directory. The first step is to specify the public IP address of the Hyperledger deployment. The public IP address can be found on the `Kubernetes Dashboard`.
 
 Open the file `ConfigNetwork.java` under `src/main/java/org/app/config` directory. Enter the IP address noted in the previous step for the constant string `IP` shown below, and save the file.
 
