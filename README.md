@@ -31,10 +31,9 @@ Follow these steps to setup and run this code pattern. The steps are described i
 
 1. [Get the code](#1-get-the-code)
 2. [Deploy Hyperledger Fabric Network using Kubernetes on IBM Cloud](#2-deploy-hyperledger-fabric-network-using-kubernetes-on-ibm-cloud)
-3. [Build the client based on Fabric Java SDK]()
-4. [Deploy as REST APIs]()
-5. [Build and deploy client app]()
-6. [Analyze the Results]()
+3. [Build the client based on Fabric Java SDK](#3-build-the-client-based-on-fabric-java-sdk)
+4. [Build and deploy webapp](#5-build-and-deploy-webapp)
+5. [Analyze the Results](#5-analyze-the-results)
 
 ## 1. Get the code
 
@@ -70,6 +69,10 @@ mvn clean install
 ibmcloud cf push
 ```
 Login to `IBM Cloud`. On the `Dashboard`, verify that an app `ngo-collaboration-java-app` is running fine.
+
+## 4. Build and deploy webapp
+
+## 5. Analyze the Results
 
 # Troubleshooting
 
