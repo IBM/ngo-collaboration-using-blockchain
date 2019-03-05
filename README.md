@@ -51,6 +51,17 @@ Follow these steps to setup and run this code pattern. The steps are described i
     
 ## 2. Deploy Hyperledger Fabric Network using Kubernetes on IBM Cloud
 
+## 3. Build the client based on Fabric Java SDK
+
+Here, we use the [Fabric Java SDK](https://github.com/hyperledger/fabric-sdk-java) to build a client to invoke or query chaincode on the hyperledger fabric network.
+
+Under the `ngo-collaboration-using-blockchain` directory, execute the below commands:
+```
+cd fabric-java-sdk-app
+mvn clean install
+ibmcloud cf push
+```
+Login to `IBM Cloud`. On the `Dashboard`, verify that an app `ngo-collaboration-java-app` is running.
 
 # Troubleshooting
 
