@@ -31,7 +31,7 @@ Follow these steps to setup and run this code pattern. The steps are described i
 
 1. [Get the code](#1-get-the-code)
 2. [Deploy Hyperledger Fabric Network using Kubernetes on IBM Cloud](#2-deploy-hyperledger-fabric-network-using-kubernetes-on-ibm-cloud)
-3. [Build the client based on Fabric Java SDK](#3-build-the-client-based-on-fabric-java-sdk)
+3. [Build the client application based on Fabric Java SDK](#3-build-the-client-application-based-on-fabric-java-sdk)
 4. [Build and deploy webapp](#5-build-and-deploy-webapp)
 5. [Analyze the Results](#5-analyze-the-results)
 
@@ -44,13 +44,13 @@ Follow these steps to setup and run this code pattern. The steps are described i
 
  - In this repository, 
     * [Network setup](https://github.com/IBM/ngo-collaboration-using-blockchain/tree/master/blockchain-network-on-kubernetes): configuration files and scripts to deploy Hyperledger Fabric network using Kubernetes on IBM Cloud.
-    * [Integration code using Fabric Java SDK](https://github.com/IBM/ngo-collaboration-using-blockchain/tree/master/fabric-java-sdk-app)
-    * [Client application code](https://github.com/IBM/ngo-collaboration-using-blockchain/tree/master/webapp)
+    * [Client code using Fabric Java SDK](https://github.com/IBM/ngo-collaboration-using-blockchain/tree/master/fabric-java-sdk-app): Application code built using Fabric Java SDK to invoke and query chaincode on the hyperledger fabric network. The operations are exposed for ReST APIs for other applications to consume.
+    * [Web application code](https://github.com/IBM/ngo-collaboration-using-blockchain/tree/master/webapp): NodeJS based application code to render UI and integrates with the ReST APIs exposed by the client application.
     
     
 ## 2. Deploy Hyperledger Fabric Network using Kubernetes on IBM Cloud
 
-## 3. Build the client based on Fabric Java SDK
+## 3. Build the client application based on Fabric Java SDK
 
 Here, we use the [Fabric Java SDK](https://github.com/hyperledger/fabric-sdk-java) to build a client to invoke and query chaincode on the hyperledger fabric network.
 
@@ -68,7 +68,7 @@ cd fabric-java-sdk-app
 mvn clean install
 ibmcloud cf push
 ```
-Login to `IBM Cloud`. On the `Dashboard`, verify that an app `ngo-collaboration-java-app` is running fine.
+Login to `IBM Cloud`. On the `Dashboard`, verify that an app `ngo-collaboration-java-app` is running fine. 
 
 ## 4. Build and deploy webapp
 
