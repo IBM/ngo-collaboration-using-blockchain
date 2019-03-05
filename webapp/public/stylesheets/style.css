@@ -94,6 +94,23 @@
   height: 40px;
   width: 100%;
 }
+
+.newNeedForm {
+  padding-top: 20px; 
+  padding-left: 25%;
+  /* padding-right: 30%; */ 
+  /* border:1px solid black; */
+}
+
+.needTable tr{
+  height: 40px;
+  /* border:1px solid black; */
+}
+
+.needTable td{
+  padding-left: 15px;
+}
+
 .tabs {
   height: 550px;
   width: 960px;
