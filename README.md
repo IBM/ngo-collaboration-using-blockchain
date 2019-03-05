@@ -27,6 +27,9 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 # Pre-requisites
 
+* [IBM Cloud Account](https://cloud.ibm.com)
+* [Git Client](https://git-scm.com/downloads) - needed for clone commands
+
 # Steps
 
 Follow these steps to setup and run this code pattern. The steps are described in detail below.
@@ -52,6 +55,31 @@ Follow these steps to setup and run this code pattern. The steps are described i
     
 ## 2. Deploy Hyperledger Fabric Network using Kubernetes on IBM Cloud
 
+In this step, we will setup the Hyperledger Fabric network using Kubernetes. For detailed steps, please refer to the [Deploy blockchain network on Cloud](https://github.com/IBM/blockchain-network-on-kubernetes).
+
+The scripts and configuration files to setup the network for this pattern can be located at `blockchain-network-on-kubernetes`. Perform the following steps to setup the network.
+
+* Gain access of your Kubernetes cluster and ensure you are able to run `kubectl` commands properly.
+* In case of IKS 1.11.x, modify the `configFiles/peersDeployment.yaml` file to point to a Docker service. Change instances of `unix:///host/var/run/docker.sock` to `tcp://docker:2375` with a text editor or use the commands below.
+   ```
+   ## macOS
+   $ sed -i '' s#unix:///host/var/run/docker.sock#tcp://docker:2375# configFiles/peersDeployment.yaml
+
+   ## Linux
+   $ sed -i s#unix:///host/var/run/docker.sock#tcp://docker:2375# configFiles/peersDeployment.yaml
+   ```
+* Execute the following steps to setup the network.
+   ```
+   cd blockchain-network-on-kubernetes
+   chmod +x setup_blockchainNetwork.sh
+   ./setup_blockchainNetwork.sh
+   ```
+* If there is a need to delete the network, execute the following steps.
+   ```
+   $ chmod +x deleteNetwork.sh
+   $ ./deleteNetwork.sh
+   ```
+   
 ## 3. Build the client application based on Fabric Java SDK
 
 Here, we use the [Fabric Java SDK](https://github.com/hyperledger/fabric-sdk-java) to build a client to invoke and query chaincode on the hyperledger fabric network.
