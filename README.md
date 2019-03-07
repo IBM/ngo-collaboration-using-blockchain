@@ -21,14 +21,25 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 # Flow
 
+![](images/architecture.png)
+
+1. Setup Blockchain Network using Kubernetes on IBM Cloud.
+2. Deploy the client application using Fabric Java SDK. It works as middle layer and exposes REST API.
+3. Deploy Web UI application built using NodeJs.
+4. User can perform following task using the web interface which internally interacts with Blockchain Network with the help of middle layer.
+   * Create a new need
+   * Pledge for a need
+   * View needs
+
 
 # Watch the Video
 
+TBD
 
 # Pre-requisites
 
 * [IBM Cloud Account](https://cloud.ibm.com)
-* [Git Client](https://git-scm.com/downloads) - needed for clone commands
+* [Git Client](https://git-scm.com/downloads) - needed for clone commands.
 
 # Steps
 
@@ -59,6 +70,7 @@ In this step, we will setup the Hyperledger Fabric network using Kubernetes. For
 
 The scripts and configuration files to setup the network for this pattern can be located at `blockchain-network-on-kubernetes`. Perform the following steps to setup the network.
 
+* Create a Kubernetes Cluster using IBM Cloud dashboard.
 * Gain access of your Kubernetes cluster and ensure you are able to run `kubectl` commands properly.
 * In case of IKS 1.11.x, modify the `configFiles/peersDeployment.yaml` file to point to a Docker service. Change instances of `unix:///host/var/run/docker.sock` to `tcp://docker:2375` with a text editor or use the commands below.
    ```
@@ -109,6 +121,8 @@ Login to `IBM Cloud`. On the `Dashboard`, verify that an app `ngo-collaboration-
 # Learn More
 
 - [Track donations with Blockchain](https://developer.ibm.com/patterns/track-donations-blockchain/)
+- [Why NGOs need collaboration?](https://www.theguardian.com/global-development/poverty-matters/2012/mar/13/ngos-need-third-way-collaboration)
+- [Understand Business-NGO partnerships](https://blogs.worldbank.org/publicsphere/why-collaborate-three-frameworks-understand-business-ngo-partnerships)
 
 <!-- keep this -->
 ## License
