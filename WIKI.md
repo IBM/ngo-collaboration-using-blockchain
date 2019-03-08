@@ -110,7 +110,7 @@ This code pattern demonstrates the use of Blockchain to facilitate the collabora
 
 Hyperledger is an open source collaborative effort created to advance cross-industry blockchain technologies for business use. This global collaboration is hosted by The Linux Foundation. Please refer to the article [Blockchain basics: Hyperledger Fabric](https://developer.ibm.com/articles/cl-blockchain-hyperledger-fabric-hyperledger-composer-compared/) for additional details.
 
-This code pattern is not just applicable to collaboration between NGOs but for collaboration between organizations with similar requirements.
+This code pattern is not just applicable to collaboration between NGOs but also for collaboration between organizations with similar requirements.
 
 
 
