@@ -14,25 +14,24 @@
     var username = window.location.search.substring(1).split("=")[1];
     var selected_val;
 
-
     $(document).ready(function () {
         $("#save").click(function (e) {
             var quantity = $("#quantity").val();
             var selected_val = $("#cat_select option:selected").val();
             var date_fulfil = $("#dateofff").val();
 
-            alert("Entered values are: Quantity: " + quantity + ", Category: " + selected_val + ", Date OFF: " + date_fulfil + ", User: " + username);
-
+            //alert("Entered values are: Quantity: " + quantity + ", Category: " + selected_val + ", Date OFF: " + date_fulfil + ", User: " + username);
+            window.location = "../createneed?username=" + username + "&item=" + selected_val + "&qty=" + quantity + "&end_date=" + date_fulfil;
             // TODO.. Call API to create a need
         });
         $("#back_to_home_page").click(function (e) {
             window.location = "../menu?username=" + username;
         });
     });
+
 </script>
 
 <body class="body">
-
     <div id="header" class="header">
             NGO Collaboration Platform
     </div>
@@ -51,10 +50,10 @@
                         </td>
                         <td>
                             <select id="cat_select" style="width: 100%">
-                                <option value="Cat1">Food</option>
-                                <option value="Cat2">Clothes</option>
-                                <option value="Cat3">Books</option>
-                                <option value="Cat4">Blankets</option>
+                                <option value="Food">Food</option>
+                                <option value="Clothes">Clothes</option>
+                                <option value="Books">Books</option>
+                                <option value="Blankets">Blankets</option>
                                 <option value="Other">Other</option>
                             </select>
                         </td>
@@ -89,7 +88,15 @@
             </table>
         </form>
     </div>
+    
     <br>
+    <script>
+        var res = '<%=result%>';
+        if( res != 'Create Need' ){
+            alert(res);
+        }
+    </script>
+   
 </body>
 
 </html>

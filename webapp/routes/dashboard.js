@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Request = require("request");
+var config = require("../config");
 
 /* GET dashboard page. */
 router.get('/', function (req, res, next) {
@@ -12,7 +13,7 @@ router.get('/', function (req, res, next) {
   ];
   */
   ///*
-  var url = "https://ngo-collaboration-java-app-friendly-numbat.mybluemix.net/QueryAllNeedsServlet";
+  var url = config.rest_base_url + "/QueryAllNeedsServlet";
   var body = { "function": "queryAllNeeds" };
 
   Request.post({
@@ -23,13 +24,10 @@ router.get('/', function (req, res, next) {
     if (error) {
       return console.dir(error);
     }
-    console.log("Response body = " + JSON.stringify(body));
-    console.log("record = " + JSON.stringify(body[0].Record));
     body.forEach(element => {
       data.push(element.Record);
     });
-    console.log("Rearranged data = " + JSON.stringify(data));
-    res.render('dashboard', { needs: data });
+    res.render('dashboard', { needs: data});
   });
 });
 

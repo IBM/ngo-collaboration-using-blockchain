@@ -21,8 +21,10 @@
 
     function validate(username, password) {
         var creds = {};
-        creds["user1"] = "password1";
-        creds["user2"] = "password2";
+        creds["ngo1"] = "ngo1";
+        creds["ngo2"] = "ngo2";
+        creds["ngo3"] = "ngo3";
+        creds["ngo4"] = "ngo4";
         creds["u"] = "p";
         if (password === creds[username]) {
             window.location = "../menu?username=" + username;
