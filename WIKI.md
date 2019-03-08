@@ -98,5 +98,20 @@ The steps will show you how to:
 
 # Announcement
 
+## Facilitate collaboration between organizations using Hyperledger 
+Collaboration enables organizations to work together to achieve a common business purpose. In some scenarios of collaboration, there is no regulation or agreements to enforce the collaboration but there is still a need to ensure transparency and trust among the organizations. An example for this scenario are Non-Governmental Organizations. During times of need, all NGOs are interested in ensuring the goods, materials or services reach the people in need.
+
+
+In this blog post we will:
+* Describe what the new code pattern does.
+* Provide a brief overview of Hyperledger.
+
+This code pattern demonstrates the use of Blockchain to facilitate the collaboration between NGOs. A Hyperledger network is used to transparently share the details of demand(need) and supply(pledged) of goods and materials between NGOs. A client application built on Fabric Java SDK is used to invoke and query chaincode on Hyperledger network. The operations are exposed as ReST apis to enable integration with different User Interface clients. A web UI application is built on Node.JS for the end user.
+
+Hyperledger is an open source collaborative effort created to advance cross-industry blockchain technologies for business use. This global collaboration is hosted by The Linux Foundation. Please refer to the article [Blockchain basics: Hyperledger Fabric](https://developer.ibm.com/articles/cl-blockchain-hyperledger-fabric-hyperledger-composer-compared/) for additional details.
+
+This code pattern is not just applicable to collaboration between NGOs but for collaboration between organizations with similar requirements.
+
+
 
 
