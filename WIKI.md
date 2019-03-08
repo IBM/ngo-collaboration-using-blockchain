@@ -94,7 +94,11 @@ The steps will show you how to:
 
 # Related links
 
-* N/A
+- [Deploy Hyperledger Fabric network on IBM Cloud](https://github.com/IBM/blockchain-network-on-kubernetes)
+- [Create and deploy a blockchain network using Hyperledger Fabric SDK for Java](https://github.com/IBM/blockchain-application-using-fabric-java-sdk)
+- [Track donations with Blockchain](https://developer.ibm.com/patterns/track-donations-blockchain/)
+- [Why NGOs need collaboration?](https://www.theguardian.com/global-development/poverty-matters/2012/mar/13/ngos-need-third-way-collaboration)
+- [Understand Business-NGO partnerships](https://blogs.worldbank.org/publicsphere/why-collaborate-three-frameworks-understand-business-ngo-partnerships)
 
 # Announcement
 
@@ -110,8 +114,7 @@ This code pattern demonstrates the use of Blockchain to facilitate the collabora
 
 Hyperledger is an open source collaborative effort created to advance cross-industry blockchain technologies for business use. This global collaboration is hosted by The Linux Foundation. Please refer to the article [Blockchain basics: Hyperledger Fabric](https://developer.ibm.com/articles/cl-blockchain-hyperledger-fabric-hyperledger-composer-compared/) for additional details.
 
-This code pattern is not just applicable to collaboration between NGOs but also for collaboration between organizations with similar requirements.
-
+This code pattern is not just applicable to collaboration between NGOs but also for collaboration between organizations with similar requirements. Try the code pattern out by going directly to our [GitHub repo](https://github.com/IBM/ngo-collaboration-using-blockchain).
 
 
 
