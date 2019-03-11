@@ -12,11 +12,8 @@
         var data = {};
         var username = window.location.search.substring(1).split("=")[1];
         $(document).ready(function () {
-            $("#goto_dashboard").click(function (e) {
-                window.location = "http://localhost:3000/dashboard";
-            });
             $("#back_to_home_page").click(function (e) {
-                window.location = "http://localhost:3000/menu?username=" + username;
+                window.location = "../menu?username=" + username;
             });
         });
 
@@ -35,8 +32,8 @@
         Past Needs
     </div>
     <p></p>
-    
-    <table id="dashtable" data-role="table" border="1" class="dashboardTable">
+    <% if( needs && needs.length > 0 ) { %>
+        <table id="dashtable" data-role="table" border="1" class="dashboardTable">
             <thead>
                 <tr>
                     <th>Need ID</th>
@@ -44,7 +41,7 @@
                     <th>Created On</th>
                     <th>Category</th>
                     <th>Quanity Required</th>
-                    <th>Quanity Remaining</th>
+                    <th>Pledged</th>
                     <th>Expected Date of Fullfillment</th>
                 </tr>
             </thead>
@@ -52,7 +49,7 @@
                 <% for (var i=0; i<needs.length; i++){ %>
                     <tr>
                         <td>
-                            <%= needs[i].id %>
+                            <%= needs[i].need_id %>
                         </td>
                         <td>
                             <%= needs[i].created_by %>
@@ -61,30 +58,36 @@
                             <%= needs[i].created_date %>
                         </td>
                         <td>
-                            <%= needs[i].category %>
+                            <%= needs[i].need_category %>
                         </td>
                         <td>
-                            <%= needs[i].quantity_required %>
+                            <%= needs[i].quantity %>
                         </td>
                         <td>
-                            <%= needs[i].quantity_remaining %>
+                            <%= needs[i].pledged %>
                         </td>
                         <td>
-                            <%= needs[i].expected_date_of_fullfillment %>
+                            <%= needs[i].expected_fulfilment_date %>
                         </td>
                     </tr>
                     <% } %>
             </tbody>
-    </table>
-    
-    <div style="width:100%; float:left;">
-            <br/>
-    </div>
-    
-    <div class="homePageButton" style="text-align: center">
-            <input type="button" class="pledgeButton" value="Back to Home Page" id="back_to_home_page" />
-    </div>
-    
+        </table>
+        <% } 
+    else{
+        %>
+            <h1>No past needs found</h1>
+            <%
+    }
+    %>
+                <div style="width:100%; float:left;">
+                    <br/>
+                </div>
+
+                <div class="homePageButton" style="text-align: center">
+                    <input type="button" class="pledgeButton" value="Back to Home Page" id="back_to_home_page" />
+                </div>
+
 </body>
 
 </html>
