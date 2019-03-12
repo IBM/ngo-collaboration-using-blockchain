@@ -5,6 +5,9 @@ var config = require("../config");
 
 /* GET dashboard page. */
 router.get('/', function (req, res, next) {
+
+  var uname = req.url.substring(2).split('=')[1];
+
   var data=[];
   /*
   var data= [{"id":1, "created_by": "User1", "created_date": "20-Dec-2018", "category": "Cat1", "quantity_required": 100, "quantity_remaining": 50, "expected_date_of_fullfillment": "30-Jan-2019"},
@@ -14,7 +17,7 @@ router.get('/', function (req, res, next) {
   */
   ///*
   var url = config.rest_base_url + "/QueryAllNeedsServlet";
-  var body = { "function": "queryAllNeeds" };
+  var body = { "function": "queryAllNeeds", "uname": uname };
 
   Request.post({
     url: url,
@@ -24,6 +27,7 @@ router.get('/', function (req, res, next) {
     if (error) {
       return console.dir(error);
     }
+    console.log(typeof body);
     body.forEach(element => {
       data.push(element.Record);
     });

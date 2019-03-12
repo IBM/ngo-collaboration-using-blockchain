@@ -10,9 +10,7 @@ router.get('/', function (req, res, next) {
   //console.log("CreateNeed Req = " + JSON.stringify(req));
   //console.log("URL = " + util.inspect(req.url))
   var paramMap = makeParamMap(req.url);
-  console.log("1");
   var paramLength = Object.keys(paramMap).length;
-  console.log("2" + paramLength);
 
   if (paramLength > 1) {
     paramMap['needId'] = 'N3'; // TODO change this when interface changes

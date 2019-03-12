@@ -14,13 +14,16 @@
         $(document).ready(function () {
             $("td").click(function (e) {
                 var needid = $(e.target).attr("needid");
+                alert("needid = " + needid);
                 if (needid) {
                     //alert($(e.target).attr("pledgeid"));
                     var qty = prompt("Please provide the quantity you would like to pledge ", "");
                     alert("pledging quantity " + qty + " for needid " + needid);
-                    data["need_id"] = needid;
-                    data["pledge_qty"] = qty;
-                    data["user"] = "userx"; // TODO.. take user id from log in creds
+                    data["needId"] = needid;
+                    data["pledgeId"] = "P1";
+                    data["qty"] = qty;
+                    data["status"] = "Pledged";
+                    data["ngo"] = username; // TODO.. take user id from log in creds
                     // TODO update pledge details.. may be call REST service from here...
                     addPledgeData(data);
                 } else {
@@ -41,7 +44,7 @@
         function addPledgeData(data) {
             $.ajax({
                 type: "POST",
-                url: "../rest/addpledge", // TODO.. update URL
+                url: "http://ngo-collaboration-java-app.mybluemix.net/CreatePledgeServlet", // TODO.. update URL
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 crossDomain: true,
@@ -51,7 +54,8 @@
                 },
                 error: function (jqXHR, status) {
                     // error handler
-                    console.log(jqXHR);
+                    console.log("jqXHR" + JSON.stringify(jqXHR));
+                    console.log("status" + status);
                     alert('failed while adding pledge data');
                 }
             });
@@ -110,7 +114,7 @@
                             <%= needs[i].expected_fulfilment_date %>
                         </td>
                         <td>
-                            <input type="button" value="Pledge" id="pledge" class="pledgeButton" needid=<%=needs[i].id %> />
+                            <input type="button" value="Pledge" id="pledge" class="pledgeButton" needid=<%=needs[i].need_id %> />
                         </td>
                     </tr>
                     <% } %>
