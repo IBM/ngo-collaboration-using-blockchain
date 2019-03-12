@@ -15,13 +15,14 @@ package org.app.user;
 
 import java.util.Properties;
 import org.app.client.CAClient;
+import org.app.config.ConfigNetwork;
 import org.app.util.Util;
 
 public class RegisterEnrollUser {
 	public static void main(String[] args) {
 		try {
 			Util.cleanUp();
-			String caUrl = "http://localhost:7054";
+			String caUrl = ConfigNetwork.CA_ORG1_URL;
 			CAClient caClient = new CAClient(caUrl, (Properties) null);
 			UserContext adminUserContext = new UserContext();
 			adminUserContext.setName("admin");

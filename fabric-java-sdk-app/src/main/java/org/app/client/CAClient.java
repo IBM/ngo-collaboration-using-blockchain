@@ -77,7 +77,6 @@ public class CAClient {
 			Enrollment adminEnrollment = this.instance.enroll(username, password);
 			this.adminContext.setEnrollment(adminEnrollment);
 			Logger.getLogger(CAClient.class.getName()).log(Level.INFO, "CA -" + this.caUrl + " Enrolled Admin.");
-			Util.writeUserContext(this.adminContext);
 			return this.adminContext;
 		}
 	}

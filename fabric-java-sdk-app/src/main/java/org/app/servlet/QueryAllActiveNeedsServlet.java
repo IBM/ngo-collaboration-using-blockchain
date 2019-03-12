@@ -83,8 +83,7 @@ public class QueryAllActiveNeedsServlet extends HttpServlet {
 	{
 		String stringResponse = "";
 		try {
-            Util.cleanUp();
-			String caUrl = ConfigNetwork.CA_ORG1_URL;
+        	String caUrl = ConfigNetwork.CA_ORG1_URL;
 			CAClient caClient = new CAClient(caUrl, null);
 			// Enroll Admin to Org1MSP
 			UserContext adminUserContext = new UserContext();
@@ -94,7 +93,16 @@ public class QueryAllActiveNeedsServlet extends HttpServlet {
 			caClient.setAdminUserContext(adminUserContext);
 			adminUserContext = caClient.enrollAdminUser(ConfigNetwork.ADMIN, ConfigNetwork.ADMIN_PASSWORD);
 			
-			FabricClient fabClient = new FabricClient(adminUserContext);
+			// Register and enroll user
+			String username = req.getString("uname");
+			UserContext uContext = new UserContext();
+			uContext.setName(username);
+			uContext.setAffiliation(ConfigNetwork.ORG1);
+			uContext.setMspId(ConfigNetwork.ORG1_MSP);
+			String secret = caClient.registerUser(username, ConfigNetwork.ORG1);
+			uContext = caClient.enrollUser(uContext, secret);
+
+			FabricClient fabClient = new FabricClient(uContext);
 			
 			ChannelClient channelClient = fabClient.createChannelClient(ConfigNetwork.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
@@ -121,6 +129,7 @@ public class QueryAllActiveNeedsServlet extends HttpServlet {
 	//Test code
 	public static void main(String[] args) {
 		JSONObject req = new JSONObject();
+		req.put("uname", "usr2");
 		req.put("date", "19-2-2019");
 		queryAllActiveNeeds(req);
 	}

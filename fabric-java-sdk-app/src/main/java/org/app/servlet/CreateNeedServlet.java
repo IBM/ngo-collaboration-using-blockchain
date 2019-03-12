@@ -35,13 +35,12 @@ import org.app.config.ConfigNetwork;
 import org.app.user.UserContext;
 import org.app.util.Util;
 import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.ChaincodeResponse.Status;
 import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.EventHub;
 import org.hyperledger.fabric.sdk.Orderer;
 import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.ProposalResponse;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
-import org.hyperledger.fabric.sdk.ChaincodeResponse.Status;
 import org.json.JSONObject;
 
 /**
@@ -95,7 +94,7 @@ public class CreateNeedServlet extends HttpServlet {
 
 	private static String createNeed(JSONObject req) {
 		try {
-			Util.cleanUp();
+			
 			String caUrl = ConfigNetwork.CA_ORG1_URL;
 			CAClient caClient = new CAClient(caUrl, null);
 			// Enroll Admin to Org1MSP
@@ -105,8 +104,17 @@ public class CreateNeedServlet extends HttpServlet {
 			adminUserContext.setMspId(ConfigNetwork.ORG1_MSP);
 			caClient.setAdminUserContext(adminUserContext);
 			adminUserContext = caClient.enrollAdminUser(ConfigNetwork.ADMIN, ConfigNetwork.ADMIN_PASSWORD);
+			
+			// Register and enroll user
+			String username = req.getString("uname");
+			UserContext uContext = new UserContext();
+			uContext.setName(username);
+			uContext.setAffiliation(ConfigNetwork.ORG1);
+			uContext.setMspId(ConfigNetwork.ORG1_MSP);
+			String secret = caClient.registerUser(username, ConfigNetwork.ORG1);
+			uContext = caClient.enrollUser(uContext, secret);
 
-			FabricClient fabClient = new FabricClient(adminUserContext);
+			FabricClient fabClient = new FabricClient(uContext);
 
 			ChannelClient channelClient = fabClient.createChannelClient(ConfigNetwork.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
@@ -149,7 +157,7 @@ public class CreateNeedServlet extends HttpServlet {
 	// Test code
 	public static void main(String args[]) {
 		JSONObject req = new JSONObject();
-
+		req.put("uname", "usr1");
 		req.put("needId", "N1");
 		req.put("ngo", "ngo1");
 		req.put("item", "food");

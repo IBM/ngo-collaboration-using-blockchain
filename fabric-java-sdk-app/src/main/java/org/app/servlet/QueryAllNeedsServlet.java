@@ -64,8 +64,8 @@ public class QueryAllNeedsServlet extends HttpServlet {
 				sb.append(s);
 			}
 			Logger.getLogger(getServletName()).log(Level.INFO, "Received configuration - " + sb.toString());
-
-			String res = queryAllNeeds();
+			JSONObject req = new JSONObject(sb.toString());
+			String res = queryAllNeeds(req);
 			response.getWriter().append(res);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,10 +82,9 @@ public class QueryAllNeedsServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private static String queryAllNeeds() {
+	private static String queryAllNeeds(JSONObject req) {
 		String stringResponse = "";
 		try {
-			Util.cleanUp();
 			String caUrl = ConfigNetwork.CA_ORG1_URL;
 			CAClient caClient = new CAClient(caUrl, null);
 			// Enroll Admin to Org1MSP
@@ -96,7 +95,16 @@ public class QueryAllNeedsServlet extends HttpServlet {
 			caClient.setAdminUserContext(adminUserContext);
 			adminUserContext = caClient.enrollAdminUser(ConfigNetwork.ADMIN, ConfigNetwork.ADMIN_PASSWORD);
 
-			FabricClient fabClient = new FabricClient(adminUserContext);
+			// Register and enroll user
+			String username = req.getString("uname");
+			UserContext uContext = new UserContext();
+			uContext.setName(username);
+			uContext.setAffiliation(ConfigNetwork.ORG1);
+			uContext.setMspId(ConfigNetwork.ORG1_MSP);
+			String secret = caClient.registerUser(username, ConfigNetwork.ORG1);
+			uContext = caClient.enrollUser(uContext, secret);
+
+			FabricClient fabClient = new FabricClient(uContext);
 
 			ChannelClient channelClient = fabClient.createChannelClient(ConfigNetwork.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
@@ -122,7 +130,9 @@ public class QueryAllNeedsServlet extends HttpServlet {
 
 	//Test code
 	public static void main(String[] args) {
-		queryAllNeeds();
+		JSONObject req = new JSONObject();
+		req.put("uname", "usr1");
+		queryAllNeeds(req);
 	}
 
 }
