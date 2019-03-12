@@ -12,10 +12,9 @@
 </head>
 <script>
     var data = [];
-    data
     $(document).ready(function () {
         var params = window.location.search.substring(1);
-        var username = params.split("&")[0].split("=")[1];
+        var username = getUsername();
         var needid = params.split("&")[1].split("=")[1];
         var createdby = params.split("&")[2].split("=")[1];
         var requiredqty = params.split("&")[3].split("=")[1];
@@ -36,7 +35,17 @@
         });
 
     });
+    function getUsername() {
+            var params = window.location.search.substring(1).split("&");
 
+            for (var i = 0; i < params.length; i++) {
+                var pair = params[i].split('=');
+                if (pair[0] === 'username' || pair[0] === 'uname' || pair[0] === 'ngo') {
+                    return pair[1];
+                }
+            }
+            return null;
+        }
 </script>
 
 <body class="body">

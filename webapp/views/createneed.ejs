@@ -11,7 +11,7 @@
 
 </head>
 <script>
-    var username = window.location.search.substring(1).split("=")[1];
+    var username = getUsername();
     var selected_val;
 
     $(document).ready(function () {
@@ -20,15 +20,23 @@
             var selected_val = $("#cat_select option:selected").val();
             var date_fulfil = $("#dateofff").val();
 
-            //alert("Entered values are: Quantity: " + quantity + ", Category: " + selected_val + ", Date OFF: " + date_fulfil + ", User: " + username);
             window.location = "../createneed?username=" + username + "&item=" + selected_val + "&qty=" + quantity + "&end_date=" + date_fulfil;
-            // TODO.. Call API to create a need
         });
         $("#back_to_home_page").click(function (e) {
             window.location = "../menu?username=" + username;
         });
     });
+    function getUsername() {
+            var params = window.location.search.substring(1).split("&");
 
+            for (var i = 0; i < params.length; i++) {
+                var pair = params[i].split('=');
+                if (pair[0] === 'username' || pair[0] === 'uname' || pair[0] === 'ngo') {
+                    return pair[1];
+                }
+            }
+            return null;
+        }
 </script>
 
 <body class="body">

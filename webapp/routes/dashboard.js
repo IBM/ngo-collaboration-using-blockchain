@@ -2,37 +2,87 @@ var express = require('express');
 var router = express.Router();
 var Request = require("request");
 var config = require("../config");
+const http = require('http');
 
 /* GET dashboard page. */
 router.get('/', function (req, res, next) {
 
+  var paramMap = makeParamMap(req.url);
+  var paramLength = Object.keys(paramMap).length;
   var uname = req.url.substring(2).split('=')[1];
+  var pledgeStatus = null;
 
-  var data=[];
-  /*
-  var data= [{"id":1, "created_by": "User1", "created_date": "20-Dec-2018", "category": "Cat1", "quantity_required": 100, "quantity_remaining": 50, "expected_date_of_fullfillment": "30-Jan-2019"},
-  {"id":2, "created_by": "User2", "created_date": "15-Dec-2018", "category": "Cat2", "quantity_required": 500, "quantity_remaining": 100, "expected_date_of_fullfillment": "15-Jan-2019"},
-  {"id":3, "created_by": "User1", "created_date": "10-Dec-2018", "category": "Cat3", "quantity_required": 300, "quantity_remaining": 250, "expected_date_of_fullfillment": "20-Jan-2019"}
-  ];
-  */
-  ///*
+
+  var data = [];
   var url = config.rest_base_url + "/QueryAllNeedsServlet";
-  var body = { "function": "queryAllNeeds", "uname": uname };
+  var payload = { "uname": uname };
 
   Request.post({
     url: url,
-    body: body,
+    body: payload,
     json: true
   }, function (error, response, body) {
     if (error) {
       return console.dir(error);
     }
-    console.log(typeof body);
     body.forEach(element => {
       data.push(element.Record);
     });
-    res.render('dashboard', { needs: data});
+    if (paramLength > 1) { // it is a create pledge
+      paramMap['status'] = 'Pledged';
+      paramMap['ngo'] = paramMap['uname'];
+  
+      const options = {
+        hostname: config.rest_hostname,
+        port: 80,
+        path: '/CreatePledgeServlet',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+  
+      const req = http.request(options, (res) => {
+        console.log(`statusCode: ${res.statusCode}`);
+  
+        res.on('data', (d) => {
+          console.log("Pledge rest response data = " + JSON.stringify(d));
+        });
+      });
+  
+      req.on('error', (error) => {
+        console.error(error);
+      });
+  
+      req.write(JSON.stringify(paramMap));
+      req.end();
+      res.render('dashboard', { needs: data, pledgeStatus: 'Pledge creation request submitted successfully' });
+    }else{
+      res.render('dashboard', { needs: data, pledgeStatus: '' });
+    }
   });
+
+
+
+
 });
+
+function makeParamMap(uri) {
+  var paramMap = {};
+  uri = uri.substring(2);
+  var params = uri.split('&');
+  for (var i = 0; i < params.length; i++) {
+    var pair = params[i].split('=');
+    if (pair[0] === 'username') {
+      paramMap['uname'] = pair[1];
+      delete paramMap['username'];
+    } else {
+      paramMap[pair[0]] = pair[1];
+    }
+  }
+  console.log("params = " + params);
+  console.log("params length = " + params.length);
+  return paramMap;
+}
 
 module.exports = router;

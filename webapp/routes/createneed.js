@@ -7,8 +7,7 @@ var config = require("../config");
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  //console.log("CreateNeed Req = " + JSON.stringify(req));
-  //console.log("URL = " + util.inspect(req.url))
+
   var paramMap = makeParamMap(req.url);
   var paramLength = Object.keys(paramMap).length;
 
@@ -23,11 +22,8 @@ router.get('/', function (req, res, next) {
   }
 });
 
-function postCreateNeed(dataTemp) {
+function postCreateNeed(data) {
 
-  var data = JSON.stringify(dataTemp);
-  //var data = dataTemp;
-  //var data = '{"ngo":"u","item":"Food","qty":"10000","end_date":"10-01-2021","needId":"N3","start_date":"08-03-2019"}';
   const options = {
     hostname: config.rest_hostname,
     port: 80,
@@ -50,7 +46,7 @@ function postCreateNeed(dataTemp) {
     console.error(error);
   });
 
-  req.write(data);
+  req.write(JSON.stringify(data));
   req.end();
   return "Need creation request submitted successfully";
 }

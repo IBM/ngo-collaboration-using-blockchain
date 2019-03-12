@@ -7,25 +7,22 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous">
     <link rel="stylesheet" href="./stylesheets/style.css">
-
     <script>
         var data = {};
-        var username = window.location.search.substring(1).split("=")[1];
+        var username = getUsername(window.location);
+
         $(document).ready(function () {
             $("td").click(function (e) {
                 var needid = $(e.target).attr("needid");
-                alert("needid = " + needid);
                 if (needid) {
                     //alert($(e.target).attr("pledgeid"));
                     var qty = prompt("Please provide the quantity you would like to pledge ", "");
-                    alert("pledging quantity " + qty + " for needid " + needid);
                     data["needId"] = needid;
-                    data["pledgeId"] = "P1";
                     data["qty"] = qty;
                     data["status"] = "Pledged";
-                    data["ngo"] = username; // TODO.. take user id from log in creds
-                    // TODO update pledge details.. may be call REST service from here...
-                    addPledgeData(data);
+                    data["ngo"] = username;
+
+                    window.location = "../dashboard?ngo=" + username + "&needId=" + needid + "&qty=" + qty;
                 } else {
                     var needid = $(this).closest('tr').find('td:eq(0)').text().trim();
                     var createdby = $(this).closest('tr').find('td:eq(1)').text().trim();
@@ -38,29 +35,19 @@
             $("#back_to_home_page").click(function (e) {
                 window.location = "../menu?username=" + username;
             });
-
         });
 
-        function addPledgeData(data) {
-            $.ajax({
-                type: "POST",
-                url: "http://ngo-collaboration-java-app.mybluemix.net/CreatePledgeServlet", // TODO.. update URL
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                crossDomain: true,
-                dataType: "json",
-                success: function (data, status, jqXHR) {
-                    alert("Pledge data updated successfully");
-                },
-                error: function (jqXHR, status) {
-                    // error handler
-                    console.log("jqXHR" + JSON.stringify(jqXHR));
-                    console.log("status" + status);
-                    alert('failed while adding pledge data');
-                }
-            });
-        }
+        function getUsername() {
+            var params = window.location.search.substring(1).split("&");
 
+            for (var i = 0; i < params.length; i++) {
+                var pair = params[i].split('=');
+                if (pair[0] === 'username' || pair[0] === 'uname' || pair[0] === 'ngo') {
+                    return pair[1];
+                }
+            }
+            return null;
+        }
     </script>
 
 </head>
@@ -70,7 +57,7 @@
         NGO Collaboration Platform
     </div>
     <br/>
-    
+
     <div id="header2" class="header2">
         Active Needs
     </div>
@@ -128,7 +115,16 @@
         <div style="width: 100%; text-align: center">
             <input type="button" class="pledgeButton" value="Back to Home Page" id="back_to_home_page" />
         </div>
+
     </div>
+    <script>
+        var result = '<%=pledgeStatus%>';
+        if (result && result.length > 0) {
+            alert('<%=pledgeStatus%>');
+            result = '';
+        }
+    </script>
+
 </body>
 
 </html>
