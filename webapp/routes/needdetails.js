@@ -1,26 +1,48 @@
 var express = require('express');
 var router = express.Router();
 var Request = require("request");
+var config = require("../config");
+const http = require('http');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    //var data={};
-    var data=[
-      { "pledgeid": 1, "qty": 10, "user": "user1" },
-      { "pledgeid": 2, "qty": 20, "user": "user2" },
-      { "pledgeid": 3, "qty": 22, "user": "user3" }
-  ];
-/*
-    Request.get("http://localhost:8000/rest/needdetails", (error, response, body) => {
-      if (error) {
-        return console.dir(error);
-      }
-      data = JSON.parse(body);
-      console.dir(data);
-      res.render('needdetails', { pledgesdata: data });
-    });
-    */
-   res.render('needdetails', { pledgesdata: data });
+
+  var paramMap = makeParamMap(req.url);
+  var paramLength = Object.keys(paramMap).length;
+  var uname = req.url.substring(2).split('=')[1];
+
+  var url = config.rest_base_url + "/QueryNeedServlet";
+  var payload = { "uname": uname, "needId": paramMap["needid"] };
+  console.log("payload = " + payload);
+
+  Request.post({
+    url: url,
+    body: payload,
+    json: true
+  }, function (error, response, body) {
+    if (error) {
+      return console.dir(error);
+    }
+    res.render('needdetails', { need: body});
+  });
 });
+
+function makeParamMap(uri) {
+  var paramMap = {};
+  uri = uri.substring(2);
+  var params = uri.split('&');
+  for (var i = 0; i < params.length; i++) {
+    var pair = params[i].split('=');
+    if (pair[0] === 'username') {
+      paramMap['uname'] = pair[1];
+      delete paramMap['username'];
+    } else {
+      paramMap[pair[0]] = pair[1];
+    }
+  }
+  console.log("params = " + params);
+  console.log("params length = " + params.length);
+  return paramMap;
+}
 
 module.exports = router;

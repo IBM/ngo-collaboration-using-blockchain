@@ -13,14 +13,12 @@
 <script>
     var data = [];
     $(document).ready(function () {
-        var params = window.location.search.substring(1);
+        //var params = window.location.search.substring(1);
         var username = getUsername();
         var needid = params.split("&")[1].split("=")[1];
         var createdby = params.split("&")[2].split("=")[1];
         var requiredqty = params.split("&")[3].split("=")[1];
 
-        $("#overviewdiv").append("<b>Need ID:</b> " + needid);
-        $("#overviewdiv").append("<br>");
         $("#overviewdiv").append("<b>Created By:</b> " + createdby);
         $("#overviewdiv").append("<br>");
         $("#overviewdiv").append("<b>Username:</b> " + username);
@@ -61,8 +59,8 @@
             <p></p>
 
             <div id="overviewdiv">
+                    <b>Need ID:</b> <%= need.need_id %>
             </div>
-
             <table id="pledgestable" data-role="table" border="1" class="dashboardTable">
                 <thead>
                     <tr>
@@ -72,16 +70,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% for (var i=0; i<pledgesdata.length; i++){ %>
+                    <% var pledgesdata = need.pledged_ids;
+                    for (var i=0; i<pledgesdata.length; i++){ %>
                         <tr>
                             <td>
-                                <%= pledgesdata[i].pledgeid %>
+                                <%= pledgesdata[i] %>
                             </td>
                             <td>
-                                <%= pledgesdata[i].qty %>
+                                <%= pledgesdata[i] %>
                             </td>
                             <td>
-                                <%= pledgesdata[i].user %>
+                                <%= pledgesdata[i] %>
                             </td>
                         </tr>
                         <% } %>
