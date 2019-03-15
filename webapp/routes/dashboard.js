@@ -25,47 +25,53 @@ router.get('/', function (req, res, next) {
     if (error) {
       return console.dir(error);
     }
+    console.log("Body = " + JSON.stringify(body));
+    /*
+    if( !body ){
+      res.render('dashboard', { needs: [], pledgeStatus: '' });
+    }
+    */
     body.forEach(element => {
       data.push(element.Record);
     });
     if (paramLength > 1) { // it is a create pledge
-      paramMap['status'] = 'Pledged';
-      paramMap['ngo'] = paramMap['uname'];
-  
-      const options = {
-        hostname: config.rest_hostname,
-        port: 80,
-        path: '/CreatePledgeServlet',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
+      url = config.rest_base_url + "/CreatePledgeServlet";
+      var payload = { "uname": paramMap.ngo, "needId": paramMap.needId, "qty": paramMap.qty, "ngo": paramMap.ngo, "status": "Pledged" };
+    
+      Request.post({
+        url: url,
+        body: payload,
+        json: true
+      }, function (error, response, body) {
+        if (error) {
+          return console.dir(error);
         }
-      }
-  
-      const req = http.request(options, (res) => {
-        console.log(`statusCode: ${res.statusCode}`);
-  
-        res.on('data', (d) => {
-          console.log("Pledge rest response data = " + JSON.stringify(d));
-        });
+        res.render('dashboard', { needs: data, pledgeStatus: body });
       });
-  
-      req.on('error', (error) => {
-        console.error(error);
-      });
-  
-      req.write(JSON.stringify(paramMap));
-      req.end();
-      res.render('dashboard', { needs: data, pledgeStatus: 'Pledge creation request submitted successfully' });
     }else{
       res.render('dashboard', { needs: data, pledgeStatus: '' });
     }
   });
 
-
-
-
 });
+
+
+function postPledge(params){
+
+  var url = config.rest_base_url + "/CreatePledgeServlet";
+  var payload = { "uname": params.ngo, "needId": params.needId, "qty": params.qty, "ngo": params.ngo, "status": "Pledged" };
+
+  Request.post({
+    url: url,
+    body: payload,
+    json: true
+  }, function (error, response, body) {
+    if (error) {
+      return console.dir(error);
+    }
+    return body;
+  });
+}
 
 function makeParamMap(uri) {
   var paramMap = {};
