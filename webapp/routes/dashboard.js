@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Request = require("request");
 var config = require("../config");
-const http = require('http');
+
 
 /* GET dashboard page. */
 router.get('/', function (req, res, next) {

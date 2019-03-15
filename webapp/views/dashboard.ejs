@@ -16,12 +16,14 @@
                 var needid = $(e.target).attr("needid");
                 if (needid) {
                     var qty = prompt("Please provide the quantity you would like to pledge ", "");
-                    data["needId"] = needid;
-                    data["qty"] = qty;
-                    data["status"] = "Pledged";
-                    data["ngo"] = username;
+                    if (qty != null && qty != 'null') {
+                        data["needId"] = needid;
+                        data["qty"] = qty;
+                        data["status"] = "Pledged";
+                        data["ngo"] = username;
 
-                    window.location = "../dashboard?ngo=" + username + "&needId=" + needid + "&qty=" + qty;
+                        window.location = "../dashboard?ngo=" + username + "&needId=" + needid + "&qty=" + qty;
+                    }
                 } else {
                     var needid = $(this).closest('tr').find('td:eq(0)').text().trim();
                     var createdby = $(this).closest('tr').find('td:eq(1)').text().trim();

@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var util = require('util');
-const http = require('http');
 var config = require("../config");
 var Request = require("request");
 
