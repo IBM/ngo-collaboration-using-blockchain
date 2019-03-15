@@ -3,6 +3,7 @@ var router = express.Router();
 var util = require('util');
 const http = require('http');
 var config = require("../config");
+var Request = require("request");
 
 
 /* GET home page. */
@@ -12,44 +13,28 @@ router.get('/', function (req, res, next) {
   var paramLength = Object.keys(paramMap).length;
 
   if (paramLength > 1) {
-    paramMap['needId'] = 'N3'; // TODO change this when interface changes
-    paramMap['start_date'] = getTodayDate(); // TODO check if this is right
+    paramMap['start_date'] = getTodayDate();
+    paramMap['uname'] = paramMap.ngo;
 
-    var postresult = postCreateNeed(paramMap);
-    res.render('createneed', { result: postresult });
+    var url = config.rest_base_url + "/CreateNeedServlet";
+    console.log("Create Need payload = " + JSON.stringify(paramMap));
+      Request.post({
+        url: url,
+        body: paramMap,
+        json: true
+      }, function (error, response, body) {
+        if (error) {
+          return console.dir(error);
+        }
+        res.render('createneed', { result: body });
+      });
+
   }else{
     res.render('createneed', { result: 'Create Need' });
   }
 });
 
-function postCreateNeed(data) {
 
-  const options = {
-    hostname: config.rest_hostname,
-    port: 80,
-    path: '/CreateNeedServlet',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
-
-  const req = http.request(options, (res) => {
-    console.log(`statusCode: ${res.statusCode}`);
-
-    res.on('data', (d) => {
-      console.log("create need response data = " + d);
-    });
-  });
-
-  req.on('error', (error) => {
-    console.error(error);
-  });
-
-  req.write(JSON.stringify(data));
-  req.end();
-  return "Need creation request submitted successfully";
-}
 
 function makeParamMap(uri) {
   var paramMap = {};
