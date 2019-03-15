@@ -15,7 +15,6 @@
             $("td").click(function (e) {
                 var needid = $(e.target).attr("needid");
                 if (needid) {
-                    //alert($(e.target).attr("pledgeid"));
                     var qty = prompt("Please provide the quantity you would like to pledge ", "");
                     data["needId"] = needid;
                     data["qty"] = qty;

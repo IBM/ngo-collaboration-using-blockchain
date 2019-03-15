@@ -28,7 +28,6 @@
     });
     function getUsername() {
             var params = window.location.search.substring(1).split("&");
-
             for (var i = 0; i < params.length; i++) {
                 var pair = params[i].split('=');
                 if (pair[0] === 'username' || pair[0] === 'uname' || pair[0] === 'ngo') {

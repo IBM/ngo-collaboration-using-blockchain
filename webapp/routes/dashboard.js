@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
       return console.dir(error);
     }
     console.log("Body = " + JSON.stringify(body));
-    /*
+    /* // TODO: handle if not active needs are found
     if( !body ){
       res.render('dashboard', { needs: [], pledgeStatus: '' });
     }
