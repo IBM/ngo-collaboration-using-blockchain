@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
   var paramLength = Object.keys(paramMap).length;
   var uname = req.url.substring(2).split('=')[1];
 
-  var url = config.rest_base_url + "/QueryNeedServlet";
+  var url = config.rest_base_url + "/QueryAllPledgesForNeedServlet";
   var payload = { "uname": uname, "needId": paramMap["needid"] };
   console.log("payload = " + payload);
 
@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
     if (error) {
       return console.dir(error);
     }
-    res.render('needdetails', { need: body});
+    res.render('needdetails', { pledgesdata: body});
   });
 });
 
