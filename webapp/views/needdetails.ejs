@@ -63,6 +63,9 @@
 
             <div id="overviewdiv">
             </div>
+            <%
+            if( pledgesdata && pledgesdata.length > 0 ){
+            %>
             <table id="pledgestable" data-role="table" border="1" class="dashboardTable">
                 <thead>
                     <tr>
@@ -87,7 +90,13 @@
                         <% } %>
                 </tbody>
             </table>
-            
+            <%
+            } else{
+                %>
+                <b>No pledges are for this need</b>
+                <%
+            }
+            %>
             <div style="width:100%; float:left;">
                     <br/>
             </div>
