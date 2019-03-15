@@ -26,37 +26,39 @@ router.get('/', function (req, res, next) {
       return console.dir(error);
     }
     console.log("Body = " + JSON.stringify(body));
-    /* // TODO: handle if not active needs are found
-    if( !body ){
-      res.render('dashboard', { needs: [], pledgeStatus: '' });
-    }
-    */
-    body.forEach(element => {
-      data.push(element.Record);
-    });
-    if (paramLength > 1) { // it is a create pledge
-      url = config.rest_base_url + "/CreatePledgeServlet";
-      var payload = { "uname": paramMap.ngo, "needId": paramMap.needId, "qty": paramMap.qty, "ngo": paramMap.ngo, "status": "Pledged" };
-    
-      Request.post({
-        url: url,
-        body: payload,
-        json: true
-      }, function (error, response, body) {
-        if (error) {
-          return console.dir(error);
-        }
-        res.render('dashboard', { needs: data, pledgeStatus: body });
+
+    if (!body) { // If there are no active needs available
+      console.log("Body undefined");
+      res.render('dashboard', { isData: false, pledgeStatus: '' });
+    } else { // If there are active needs available
+      body.forEach(element => {
+        data.push(element.Record);
       });
-    }else{
-      res.render('dashboard', { needs: data, pledgeStatus: '' });
+      if (paramLength > 1) { // it is a create pledge
+        url = config.rest_base_url + "/CreatePledgeServlet";
+        var payload = { "uname": paramMap.ngo, "needId": paramMap.needId, "qty": paramMap.qty, "ngo": paramMap.ngo, "status": "Pledged" };
+
+        Request.post({
+          url: url,
+          body: payload,
+          json: true
+        }, function (error, response, body) {
+          if (error) {
+            return console.dir(error);
+          }
+          res.render('dashboard', { needs: data, pledgeStatus: body, isData: true });
+        });
+      } else {
+        res.render('dashboard', { needs: data, pledgeStatus: '', isData: true });
+      }
     }
+
   });
 
 });
 
 
-function postPledge(params){
+function postPledge(params) {
 
   var url = config.rest_base_url + "/CreatePledgeServlet";
   var payload = { "uname": params.ngo, "needId": params.needId, "qty": params.qty, "ngo": params.ngo, "status": "Pledged" };

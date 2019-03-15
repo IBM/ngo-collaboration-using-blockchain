@@ -62,58 +62,65 @@
     </div>
     <p></p>
     <div>
-        <table id="dashtable" data-role="table" border="1" class="dashboardTable">
-            <thead>
-                <tr>
-                    <th>Need ID</th>
-                    <th>Created By</th>
-                    <th>Created On</th>
-                    <th>Category</th>
-                    <th>Quanity Required</th>
-                    <th>Pledged Qty</th>
-                    <th>Expected Date of Fullfillment</th>
-                    <th>Pledge</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (var i=0; i<needs.length; i++){ %>
+        <% if( isData ){ %>
+            <table id="dashtable" data-role="table" border="1" class="dashboardTable">
+                <thead>
                     <tr>
-                        <td>
-                            <%= needs[i].need_id %>
-                        </td>
-                        <td>
-                            <%= needs[i].created_by %>
-                        </td>
-                        <td>
-                            <%= needs[i].created_date %>
-                        </td>
-                        <td>
-                            <%= needs[i].need_category %>
-                        </td>
-                        <td>
-                            <%= needs[i].quantity %>
-                        </td>
-                        <td>
-                            <%= needs[i].pledged %>
-                        </td>
-                        <td>
-                            <%= needs[i].expected_fulfilment_date %>
-                        </td>
-                        <td>
-                            <input type="button" value="Pledge" id="pledge" class="pledgeButton" needid=<%=needs[i].need_id %> />
-                        </td>
+                        <th>Need ID</th>
+                        <th>Created By</th>
+                        <th>Created On</th>
+                        <th>Category</th>
+                        <th>Quanity Required</th>
+                        <th>Pledged Qty</th>
+                        <th>Expected Date of Fullfillment</th>
+                        <th>Pledge</th>
                     </tr>
-                    <% } %>
-            </tbody>
-        </table>
-
-        <div class="note">
-            **Click on a row to get more details for a need.
-        </div>
-        <br/>
-        <div style="width: 100%; text-align: center">
-            <input type="button" class="pledgeButton" value="Back to Home Page" id="back_to_home_page" />
-        </div>
+                </thead>
+                <tbody>
+                    <% for (var i=0; i<needs.length; i++){ %>
+                        <tr>
+                            <td>
+                                <%= needs[i].need_id %>
+                            </td>
+                            <td>
+                                <%= needs[i].created_by %>
+                            </td>
+                            <td>
+                                <%= needs[i].created_date %>
+                            </td>
+                            <td>
+                                <%= needs[i].need_category %>
+                            </td>
+                            <td>
+                                <%= needs[i].quantity %>
+                            </td>
+                            <td>
+                                <%= needs[i].pledged %>
+                            </td>
+                            <td>
+                                <%= needs[i].expected_fulfilment_date %>
+                            </td>
+                            <td>
+                                <input type="button" value="Pledge" id="pledge" class="pledgeButton" needid=<%=needs[i].need_id %> />
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            <div class="note">
+                **Click on a row to get more details for a need.
+            </div>
+            <% }
+        else{
+            %>
+                <b>No active needs available</b>
+                <%
+        }
+         %>
+                    <br/>
+                    <div style="width: 100%; text-align: center">
+                        <input type="button" class="pledgeButton" value="Back to Home Page" id="back_to_home_page" />
+                    </div>
 
     </div>
     <script>
