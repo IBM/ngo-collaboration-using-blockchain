@@ -221,12 +221,12 @@ func (s *SmartContract) queryAllActiveNeeds(APIstub shim.ChaincodeStubInterface,
 		date2Date, _ := strconv.Atoi(date2[0])
 		date2Month, _ := strconv.Atoi(date2[1])
 		date2Year, _ := strconv.Atoi(date2[2])
-
-		if date2Year > date1Year && need.Status == "Open" {
+		
+		if date2Year < date1Year { // not considered here need.Status == "Open"
 			activeNeeds = append(activeNeeds, need)
-		} else if date2Year == date1Year && date2Month > date1Month && need.Status == "Open" {
+		} else if date2Year == date1Year && date2Month < date1Month {
 			activeNeeds = append(activeNeeds, need)
-		} else if date2Year == date1Year && date2Month == date1Month && date2Date <= date1Date && need.Status == "Open"{
+		} else if date2Year == date1Year && date2Month == date1Month && date2Date >= date1Date {
 			activeNeeds = append(activeNeeds, need)
 		}
 	}
@@ -276,11 +276,11 @@ func (s *SmartContract) queryAllPastNeeds(APIstub shim.ChaincodeStubInterface, a
 		date2Month, _ := strconv.Atoi(date2[1])
 		date2Year, _ := strconv.Atoi(date2[2])
 
-		if date2Year < date1Year {
+		if date2Year > date1Year {
 			pastNeeds = append(pastNeeds, need)
-		} else if date2Year == date1Year && date2Month < date1Month {
+		} else if date2Year == date1Year && date2Month > date1Month {
 			pastNeeds = append(pastNeeds, need)
-		} else if date2Year == date1Year && date2Month == date1Month && date2Date > date1Date {
+		} else if date2Year == date1Year && date2Month == date1Month && date2Date < date1Date {
 			pastNeeds = append(pastNeeds, need)
 		}
 	}
