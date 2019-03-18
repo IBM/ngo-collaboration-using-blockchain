@@ -4,3 +4,5 @@
     memory: 256M
     path: target/ngo-collaboration-java.war
     buildpack: liberty-for-java
+    env:
+      KUBERNETES_IP_ADDRESS: xxx.xxx.xx.xx
