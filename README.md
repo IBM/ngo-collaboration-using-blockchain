@@ -96,12 +96,19 @@ The scripts and configuration files to setup the network for this pattern can be
 
 Here, we use the [Fabric Java SDK](https://github.com/hyperledger/fabric-sdk-java) to build a client to invoke and query chaincode on the hyperledger fabric network.
 
-The java source code for the client can be found under `fabric-java-sdk-app` directory. The first step is to specify the public IP address of the Hyperledger deployment. The public IP address can be found on the `Kubernetes Dashboard`.
+The first step is to specify the public IP address of the Hyperledger deployment. The public IP address can be found on the `Kubernetes Dashboard`.
 
-Open the file `ConfigNetwork.java` under `src/main/java/org/app/config` directory. Enter the IP address noted in the previous step for the constant string `IP` shown below, and save the file.
+Open the `manifest.yml` file under `fabric-java-sdk-app` directory. Enter the IP address noted in the previous step for the variable `KUBERNETES_IP_ADDRESS`, and save the file.
 
 ```
-public static final String IP = "xxx.xxx.xx.xxx";
+applications:
+  - name: ngo-collaboration-java-app
+    random-route: true
+    memory: 256M
+    path: target/ngo-collaboration-java.war
+    buildpack: liberty-for-java
+    env:
+      KUBERNETES_IP_ADDRESS: xxx.xxx.xx.xx
 ```
 
 Next, on the command terminal go to `ngo-collaboration-using-blockchain` directory, and execute the below commands:
