@@ -117,13 +117,74 @@ cd fabric-java-sdk-app
 mvn clean install
 ibmcloud cf push
 ```
-Login to `IBM Cloud`. On the `Dashboard`, verify that an app `ngo-collaboration-java-app` is running fine. 
+Login to `IBM Cloud`. On the `Dashboard`, verify that an app `ngo-collaboration-java-app` is running fine.
+
+Make a note of this Fabric Java SDK client application's url. On IBM Cloud dashboard, click on the application. When application page opens, click on `Visit App URL`. Now make a note of the url, as shown on the browser, even if the page shows some error. This url should be provided in web application that interacts with this Fabric Java SDK client application. 
 
 ## 4. Build and deploy webapp
 
+A web application is provided to perform various operations like `View Needs`, `Create Need`, `Pledge for a need` etc. Web appication code can be found under `webapp` directory.
+
+This web application invokes rest interfaces implemented in Fabric Java SDK client application as explained above. Hence the web application needs Fabric Java SDK client application url for rest invocations. The url is stored in `config.js` file. Update the Java application url, as noted in section [Build the client application based on Fabric Java SDK](#3-build-the-client-application-based-on-fabric-java-sdk) in config.js file, found in the root folder of web application.
+
+On command prompt navigate to web application root folder. Run the command `npm install`. This installs all the necessary libraries.
+
+Next you will deploy the web application to IBM Cloud. Deploy the application to IBM Cloud using the command `ibmcloud cf push`. Deployment might take a few minutes to complete. Ensure that there are no errors while deploying the application. 
+
+
+## 5. Run the application
+
+Login to `IBM Cloud`. On the `Dashboard`, verify that an app `ngo-collaboration-webui` is running fine. Click on the web application entry. When application page opens, click on `Visit App URL`. Web application login page opens.
+
+Login usernames are `ngo1`, `ngo2`, `ngo3`, `ngo4`. Passwords are same as usernames. Login to the application using any login details. 
+
+![](images/webui-login.png)
+
+You will be presented with the tasks that you can perform.
+
+![](images/webui-tasks.png)
+
+There are no needs available by default. So create one or more new needs. To create a new need click on `Create a New Need`. Enter need details. Note that the date format is always dd-mm-yyyy.
+
+![](images/webui-create-need.png)
+
+Click on `Save` button to create need. A pop up message appears with the result of the create need request. Click `OK`. You can create more needs. Login with other users so as to simulate a real scenario. Once done click on `Back to Home Page` button to return to tasks list.
+
+Click on `View Active Needs` to view the list of active needs, as shown in below image. Note that a need was already created while taking the below screen capture. For you there should be only one need listed for the first time you create a need.
+
+![](images/webui-active-needs.png)
+
+Click on `Pledge` button to pledge a certian quantity of the need that was created. A pop up dialog asks for the quantity you want to pledge. Enter some quantity that is less than or equal to the remaining quantity for the need.
+
+![](images/webui-pledge-qty.png)
+
+> Note: There are no validation done for the values entered. So, enter values that make sense.
+
+Click `OK`. You should get an alert message about the result of the pledge operation. Click `OK`. To refresh the data, click `Back to Home Page` and then again click `View Active Needs`. The pledged data should be updated.
+
+![](images/webui-pledge-updated-qty.png)
+
+Similarly add a couple of more pledges, but login using different usernames for every pledge to simulate real scenario. After few more pledges are made, go to home page (dashboard) and click on `View Active Needs`. Click on the row of the need for which pledges were made. You should see details as shown in below image.
+
+![](images/webui-pledges-for-a-need.png)
+
+Click `Back to Home Page` to go back to dashboard. 
+
+`View Past Needs` shown all the needs whose `Expected Date of Fullfillment` is a past date as on current date. 
+
+// TODO take the screenshot tomorrow when the date changes
+
 ## 5. Analyze the Results
 
+We saw that needs can be created by different NGOs which is visible to all the NGOs in the network. Any NGO can pledge for the need which is captured in the network and whose details can also be viewed. NGOs can see past needs and their details as well.
+
 # Troubleshooting
+
+- Incorrect IP address of kubernetes network in Java SDK app
+- Incorrect url of Java SDK application in webapp
+- Kubernetes is not running
+- Java app is not running
+- How to check log files
 
 # Learn More
 

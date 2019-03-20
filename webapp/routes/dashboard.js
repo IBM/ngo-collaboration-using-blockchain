@@ -14,8 +14,9 @@ router.get('/', function (req, res, next) {
 
 
   var data = [];
-  var url = config.rest_base_url + "/QueryAllNeedsServlet";
-  var payload = { "uname": uname };
+  var todatDate = getTodayDate();
+  var url = config.rest_base_url + "/QueryAllActiveNeedsServlet";
+  var payload = { "uname": uname, "date": todatDate};
 
   Request.post({
     url: url,
@@ -32,8 +33,12 @@ router.get('/', function (req, res, next) {
       res.render('dashboard', { isData: false, pledgeStatus: '' });
     } else { // If there are active needs available
       body.forEach(element => {
-        data.push(element.Record);
+        // TODO remove the hardcoded block below
+        data.push(element);
+        // if( element.Record.expected_fulfilment_date != '01-06-1979'){
+        //   } 
       });
+      
       if (paramLength > 1) { // it is a create pledge
         url = config.rest_base_url + "/CreatePledgeServlet";
         var payload = { "uname": paramMap.ngo, "needId": paramMap.needId, "qty": paramMap.qty, "ngo": paramMap.ngo, "status": "Pledged" };
@@ -49,7 +54,7 @@ router.get('/', function (req, res, next) {
           res.render('dashboard', { needs: data, pledgeStatus: body, isData: true });
         });
       } else {
-        res.render('dashboard', { needs: data, pledgeStatus: '', isData: true });
+        res.render('dashboard', { needs: body, pledgeStatus: '', isData: true });
       }
     }
 
@@ -91,6 +96,26 @@ function makeParamMap(uri) {
   console.log("params = " + params);
   console.log("params length = " + params.length);
   return paramMap;
+}
+
+
+function getTodayDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = dd + '-' + mm + '-' + yyyy;
+  return today;
+
 }
 
 module.exports = router;
