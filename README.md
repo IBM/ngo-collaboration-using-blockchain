@@ -127,7 +127,7 @@ Make a note of this Fabric Java SDK client application's url. On IBM Cloud dashb
 
 A web application is provided to perform various operations like `View Needs`, `Create Need`, `Pledge for a need` etc. Web appication code can be found under `webapp` directory.
 
-This web application invokes rest interfaces implemented in Fabric Java SDK client application as explained above. Hence the web application needs Fabric Java SDK client application url for rest invocations. The url is stored in `config.js` file. Update the Java application url, as noted in section [Build the client application based on Fabric Java SDK](#3-build-the-client-application-based-on-fabric-java-sdk) in config.js file, found in the root folder of web application.
+This web application invokes rest interfaces implemented in Fabric Java SDK client application as explained above. Hence the web application needs Fabric Java SDK client application url for rest invocations. The url is stored in `config.js` file. Update the Java application url, as noted in section [Build the client application based on Fabric Java SDK](#3-build-the-client-application-based-on-fabric-java-sdk) in `config.js` file, found in the root folder of web application.
 
 On command prompt navigate to web application root folder. Run the command `npm install`. This installs all the necessary libraries.
 
@@ -146,11 +146,11 @@ You will be presented with the tasks that you can perform.
 
 ![](images/webui-tasks.png)
 
-There are no needs available by default. So create one or more new needs. To create a new need click on `Create a New Need`. Enter need details. Note that the date format is always dd-mm-yyyy.
+There are no needs available by default. So create one or more new needs. To create a new need click on `Create a New Need`. Enter need details. Note that the date format is always `dd-mm-yyyy`.
 
 ![](images/webui-create-need.png)
 
-Click on `Save` button to create need. A pop up message appears with the result of the create need request. Click `OK`. You can create more needs. Login with other users so as to simulate a real scenario. Once done click on `Back to Home Page` button to return to tasks list.
+Click on `Save` button to create need. A pop up message appears with the result of the create need request. Click `OK`. You can create more needs. Suggest you to create needs by logging in with different users so as to simulate a real scenario. Once done click on `Back to Home Page` button to return to tasks list.
 
 Click on `View Active Needs` to view the list of active needs, as shown in below image. Note that a need was already created while taking the below screen capture. For you there should be only one need listed for the first time you create a need.
 
