@@ -40,6 +40,8 @@ TBD
 
 * [IBM Cloud Account](https://cloud.ibm.com)
 * [Git Client](https://git-scm.com/downloads) - needed for clone commands.
+* [Maven](https://maven.apache.org/install.html)
+* [Nodejs](https://nodejs.org/en/download/)
 
 # Steps
 
