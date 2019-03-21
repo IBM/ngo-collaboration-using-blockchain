@@ -170,9 +170,9 @@ Similarly add a couple of more pledges, but login using different usernames for 
 
 Click `Back to Home Page` to go back to dashboard. 
 
-`View Past Needs` shown all the needs whose `Expected Date of Fullfillment` is a past date as on current date. 
+`View Past Needs` shows all the needs whose `Expected Date of Fullfillment` is a past date as on current date. For us to have past needs, in the backend we added a need with a past date just to show the functionality here. You will have to wait till the date after the expected date of fullfill is over. Then click on `View Past Needs`.
 
-// TODO take the screenshot tomorrow when the date changes
+![](images/webui-past-needs.png)
 
 ## 5. Analyze the Results
 
