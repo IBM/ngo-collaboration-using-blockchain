@@ -1,0 +1,5 @@
+- Incorrect IP address of kubernetes network in Java SDK app
+- Incorrect url of Java SDK application in webapp
+- Kubernetes is not running
+- Java app is not running
+- How to check log files

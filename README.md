@@ -50,7 +50,7 @@ Follow these steps to setup and run this code pattern. The steps are described i
 1. [Get the code](#1-get-the-code)
 2. [Deploy Hyperledger Fabric Network using Kubernetes on IBM Cloud](#2-deploy-hyperledger-fabric-network-using-kubernetes-on-ibm-cloud)
 3. [Build the client application based on Fabric Java SDK](#3-build-the-client-application-based-on-fabric-java-sdk)
-4. [Build and deploy webapp](#5-build-and-deploy-webapp)
+4. [Build and deploy webapp](#4-build-and-deploy-webapp)
 5. [Analyze the Results](#5-analyze-the-results)
 
 ## 1. Get the code
@@ -134,7 +134,7 @@ On command prompt navigate to web application root folder. Run the command `npm 
 Next you will deploy the web application to IBM Cloud. Deploy the application to IBM Cloud using the command `ibmcloud cf push`. Deployment might take a few minutes to complete. Ensure that there are no errors while deploying the application. 
 
 
-## 5. Run the application
+## 5. Analyze the Results
 
 Login to `IBM Cloud`. On the `Dashboard`, verify that an app `ngo-collaboration-webui` is running fine. Click on the web application entry. When application page opens, click on `Visit App URL`. Web application login page opens.
 
@@ -176,17 +176,12 @@ Click `Back to Home Page` to go back to dashboard.
 
 ![](images/webui-past-needs.png)
 
-## 5. Analyze the Results
-
 We saw that needs can be created by different NGOs which is visible to all the NGOs in the network. Any NGO can pledge for the need which is captured in the network and whose details can also be viewed. NGOs can see past needs and their details as well.
 
-# Troubleshooting
 
-- Incorrect IP address of kubernetes network in Java SDK app
-- Incorrect url of Java SDK application in webapp
-- Kubernetes is not running
-- Java app is not running
-- How to check log files
+# Troubleshooting
+See [Debugging.md](./Debugging.md)
+
 
 # Learn More
 
