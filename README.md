@@ -93,7 +93,22 @@ The scripts and configuration files to setup the network for this pattern can be
    $ chmod +x deleteNetwork.sh
    $ ./deleteNetwork.sh
    ```
-   
+
+**Get the public IP of your Kubernetes CLuster**
+
+After setting up your network, find out the public IP of your cluster. It will be required for further steps.
+
+* Go to IBM Cloud Dashboard.
+
+* Click on your Kubernetes Cluster under `Clusters` section on Dashboard. It gives you details of the cluster.
+
+* Access `Worker Nodes` tab, it will show you the public IP of your cluster as shown in below screenshot.
+
+  ![](images/worker-nodes.png)
+  
+  Make a note of this public IP. It will be used in next step.
+  
+
 ## 3. Build the client application based on Fabric Java SDK
 
 Here, we use the [Fabric Java SDK](https://github.com/hyperledger/fabric-sdk-java) to build a client to invoke and query chaincode on the hyperledger fabric network.
