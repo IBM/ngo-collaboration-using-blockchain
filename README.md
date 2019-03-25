@@ -73,8 +73,8 @@ In this step, we will setup the Hyperledger Fabric network using Kubernetes. For
 The scripts and configuration files to setup the network for this pattern can be located at `blockchain-network-on-kubernetes`. Perform the following steps to setup the network.
 
 * Create a [Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster?bss_account=01fedb4f3ff70b186d83cdb1e1e0cbc8) instance using IBM Cloud dashboard.
-* Gain access of your Kubernetes cluster and ensure you are able to run `kubectl` commands properly.
-* In case of IKS 1.11.x, modify the `configFiles/peersDeployment.yaml` file to point to a Docker service. Change instances of `unix:///host/var/run/docker.sock` to `tcp://docker:2375` with a text editor or use the commands below.
+* Gain access of your Kubernetes cluster as explained in `step 3` in [repository](https://github.com/IBM/blockchain-network-on-kubernetes) and ensure you are able to run `kubectl` commands properly.
+* In case of IKS 1.11.x, modify the `blockchain-network-on-kubernetes/configFiles/peersDeployment.yaml` file to point to a Docker service. Change instances of `unix:///host/var/run/docker.sock` to `tcp://docker:2375` with a text editor or use the commands below.
    ```
    ## macOS
    $ sed -i '' s#unix:///host/var/run/docker.sock#tcp://docker:2375# configFiles/peersDeployment.yaml
