@@ -94,7 +94,7 @@ The scripts and configuration files to setup the network for this pattern can be
    $ ./deleteNetwork.sh
    ```
 
-**Get the public IP of your Kubernetes CLuster**
+**Get the public IP of your Kubernetes Cluster**
 
 After setting up your network, find out the public IP of your cluster. It will be required for further steps.
 
