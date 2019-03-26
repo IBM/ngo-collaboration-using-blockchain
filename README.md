@@ -135,9 +135,9 @@ After setting up your network, find out the public IP of your cluster. It will b
 
 Here, we use the [Fabric Java SDK](https://github.com/hyperledger/fabric-sdk-java) to build a client to invoke and query chaincode on the hyperledger fabric network.
 
-The first step is to specify the public IP address of the Hyperledger deployment. The public IP address can be found on the `Kubernetes Dashboard` as described in the previous section.
+The first step is to specify the public IP address of the Kubernetes Cluster. The public IP address can be found on the `Kubernetes Dashboard` as described in the previous section.
 
-Open the `manifest.yml` file under `fabric-java-sdk-app` directory. Enter the public IP address of the Hyperledger deployment for the variable `KUBERNETES_IP_ADDRESS`, and save the file.
+Open the `manifest.yml` file under `fabric-java-sdk-app` directory. Enter the public IP address of the Kubernetes Cluster for the variable `KUBERNETES_IP_ADDRESS`, and save the file.
 
 ```
 applications:
