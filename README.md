@@ -81,6 +81,29 @@ The scripts and configuration files to setup the network for this pattern can be
    ## Linux
    $ sed -i s#unix:///host/var/run/docker.sock#tcp://docker:2375# configFiles/peersDeployment.yaml
    ```
+  
+* Choose the appropriate script to setup the network as per your environment. For this, check your kubectl CLI version as:
+
+    ```
+    $ kubectl version --short
+    ```
+
+  This command will give you `Client Version` and `Server Version`. 
+  If the `Client version > v1.11.x` i.e. 1.12.x or more then use `setup_blockchainNetwork_v2.sh` to set up the network. Run 
+  the following command:
+
+    ```
+    cd blockchain-network-on-kubernetes
+    cp setup_blockchainNetwork_v2.sh setup_blockchainNetwork.sh
+    ```
+
+  If the `Client version <= v1.11.x` then use `setup_blockchainNetwork_v1.sh` to setup the network. Copy the script as shown.
+    ```
+    cd blockchain-network-on-kubernetes
+    cp setup_blockchainNetwork_v1.sh setup_blockchainNetwork.sh
+    ```
+
+
 * Execute the following steps to setup the network.
    ```
    cd blockchain-network-on-kubernetes
