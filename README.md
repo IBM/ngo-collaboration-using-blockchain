@@ -1,4 +1,3 @@
-## ** Work in Progress **
 
 # NGOs collaboration using Blockchain - A Composite Pattern
 **Demonstrate the use of Hyperledger Fabric for building a collaboration platform for NGOs.**
