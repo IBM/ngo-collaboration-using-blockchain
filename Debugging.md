@@ -19,7 +19,7 @@
 org.hyperledger.fabric_ca.sdk.exception.EnrollmentException: Url:http://xxx.xx.xx.xxx:30054, Failed to enroll user admin 
 	at org.hyperledger.fabric_ca.sdk.HFCAClient.enroll(HFCAClient.java:518)
 ...
-Caused by: org.apache.http.conn.HttpHostConnectException: Connect to xxx.xx.xx.xxx:30054 [/184.13.5.215] failed: Operation timed out (Connection timed out)
+Caused by: org.apache.http.conn.HttpHostConnectException: Connect to xxx.xx.xx.xxx:30054 [/xxx.xx.xx.xxx] failed: Operation timed out (Connection timed out)
 ...
 Caused by: java.net.ConnectException: Operation timed out (Connection timed out)
 	at java.net.PlainSocketImpl.socketConnect(Native Method)
