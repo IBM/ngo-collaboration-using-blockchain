@@ -13,6 +13,17 @@
   ```
   It means environment is not set properly. Export KUBECONFIG path, it will work. To get more details on KUBECONFIG value, refer to the `Access` tab of your cluster in IBM Cloud Dashboard.
 
-* Incorrect IP address of kubernetes network in Java SDK app
+* If there is connection related exception in the Liberty runtime logs, please check whether the IP address of the Kubernetes network has been specified correctly in the `manifest.yml` file as described in Step 3 (Build the client application based on Fabric Java SDK).
+
+```
+org.hyperledger.fabric_ca.sdk.exception.EnrollmentException: Url:http://xxx.xx.xx.xxx:30054, Failed to enroll user admin 
+	at org.hyperledger.fabric_ca.sdk.HFCAClient.enroll(HFCAClient.java:518)
+...
+Caused by: org.apache.http.conn.HttpHostConnectException: Connect to xxx.xx.xx.xxx:30054 [/184.13.5.215] failed: Operation timed out (Connection timed out)
+...
+Caused by: java.net.ConnectException: Operation timed out (Connection timed out)
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+```
+
 * Incorrect url of Java SDK application in webapp
 * Java app is not running
