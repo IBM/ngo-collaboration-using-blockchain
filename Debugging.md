@@ -25,5 +25,15 @@ Caused by: java.net.ConnectException: Operation timed out (Connection timed out)
 	at java.net.PlainSocketImpl.socketConnect(Native Method)
 ```
 
-* Incorrect url of Java SDK application in webapp
-* Java app is not running
+* During running the web application, if you get the following error:
+
+```
+This page isn’t working
+```
+
+It means that the url of the Java SDK application might not be right. Ensure that the Java SDK application url is provided correctly in config.js file of webapp. 
+
+```
+This site can’t be reached
+```
+It means that Java SDK application might not be running. Ensure that the Java SDK application is up and running. 
