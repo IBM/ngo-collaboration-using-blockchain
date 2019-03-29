@@ -1,4 +1,4 @@
-* During setup of Blockchain network on Kubernetes, if you get following error:
+* If chaincode instantion fails during setup of Blockchain network on Kubernetes, check the logs of Chaincode-instantiation pod. If error says:
 
   ```
   Error: could not assemble transaction, err proposal response was not successful, error code 500, msg error starting container: error starting container: cannot connect to Docker endpoint 
