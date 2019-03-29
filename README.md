@@ -31,10 +31,6 @@ When the reader has completed this Code Pattern, they will understand how to:
    * View needs
 
 
-# Watch the Video
-
-TBD
-
 # Pre-requisites
 
 * [IBM Cloud Account](https://cloud.ibm.com)
