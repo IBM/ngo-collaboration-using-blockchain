@@ -14,7 +14,7 @@ This composite pattern demonstrates a solution using a combination of other indi
 
 When the reader has completed this Code Pattern, they will understand how to:
 
-- Setup blockchain Network on Kubernetes
+- Setup blockchain Network on Kubernetes directly through configuration files not using [Blockchain Platform 2.0]((https://cloud.ibm.com/catalog/services/blockchain-platform-20)) as a service on IBM Cloud
 - Interact with blockchain network using Fabric Java SDK
 - Build a client application which will interact with blockchain network with the help of SDK
 
@@ -22,7 +22,7 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 ![](images/architecture.png)
 
-1. Setup Blockchain Network using Kubernetes on IBM Cloud.
+1. Setup Blockchain Network using Kubernetes configuration files on IBM Cloud.
 2. Deploy the client application using Fabric Java SDK. It works as middle layer and exposes REST API.
 3. Deploy Web UI application built using NodeJs.
 4. User can perform following task using the web interface which internally interacts with Blockchain Network with the help of middle layer.
