@@ -1,4 +1,4 @@
-package org.app.util;
+package org.example.util;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -21,8 +21,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.DatatypeConverter;
-import org.app.user.CAEnrollment;
-import org.app.user.UserContext;
+
+import org.example.user.CAEnrollment;
+import org.example.user.UserContext;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 
 public class Util {

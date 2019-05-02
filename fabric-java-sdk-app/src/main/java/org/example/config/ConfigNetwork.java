@@ -11,7 +11,7 @@
  *  limitations under the License.
  */ 
 
-package org.app.config;
+package org.example.config;
 
 /**
  * 

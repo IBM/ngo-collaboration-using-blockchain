@@ -11,10 +11,14 @@
  *  limitations under the License.
  */ 
 
-package org.app.servlet;
+package org.example.servlet;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,29 +28,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.app.client.CAClient;
-import org.app.client.ChannelClient;
-import org.app.client.FabricClient;
-import org.app.config.ConfigNetwork;
-import org.app.user.UserContext;
-import org.app.util.Util;
+import org.example.client.CAClient;
+import org.example.client.ChannelClient;
+import org.example.client.FabricClient;
+import org.example.config.ConfigNetwork;
+import org.example.user.UserContext;
+import org.example.util.Util;
+import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.Orderer;
 import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.hyperledger.fabric.sdk.TransactionProposalRequest;
+import org.hyperledger.fabric.sdk.ChaincodeResponse.Status;
 import org.json.JSONObject;
 
 /**
- * Servlet implementation class QueryAllPastNeedsServlet
+ * Servlet implementation class CreatePledgeServlet
  */
-@WebServlet("/QueryAllPastNeedsServlet")
-public class QueryAllPastNeedsServlet extends HttpServlet {
+@WebServlet("/CreatePledgeServlet")
+public class CreatePledgeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static int pledge_id = 1;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QueryAllPastNeedsServlet() {
+    public CreatePledgeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -63,11 +71,13 @@ public class QueryAllPastNeedsServlet extends HttpServlet {
 			}
 			Logger.getLogger(getServletName()).log(Level.INFO, "Received configuration - " + sb.toString());
 			JSONObject req = new JSONObject(sb.toString());
-			String res = queryAllPastNeeds(req);
-			response.getWriter().append(res);
+			req.put("pledgeId", "P" + pledge_id);
+			pledge_id = pledge_id + 1;
+			createPledge(req);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		response.getWriter().append("Created Pledge with ID:" + "P" + (pledge_id - 1));
 	}
 
 	/**
@@ -77,23 +87,22 @@ public class QueryAllPastNeedsServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
-	private static String queryAllPastNeeds(JSONObject req)
-	{
-		String stringResponse = "";
+	
+	private static String createPledge(JSONObject req) {
 		try {
-  			String caUrl = ConfigNetwork.CA_ORG1_URL;
+			String caUrl = ConfigNetwork.CA_ORG1_URL;
 			CAClient caClient = new CAClient(caUrl, null);
 			// Enroll Admin to Org1MSP
 			UserContext adminUserContext = new UserContext();
-			adminUserContext.setName(org.app.config.ConfigNetwork.ADMIN);
+			adminUserContext.setName(ConfigNetwork.ADMIN);
 			adminUserContext.setAffiliation(ConfigNetwork.ORG1);
 			adminUserContext.setMspId(ConfigNetwork.ORG1_MSP);
 			caClient.setAdminUserContext(adminUserContext);
 			adminUserContext = caClient.enrollAdminUser(ConfigNetwork.ADMIN, ConfigNetwork.ADMIN_PASSWORD);
-			
+
 			// Register and enroll user
 			String username = req.getString("uname");
+			System.out.println("Registering Username:"+username);
 			UserContext uContext = new UserContext();
 			uContext.setName(username);
 			uContext.setAffiliation(ConfigNetwork.ORG1);
@@ -102,7 +111,7 @@ public class QueryAllPastNeedsServlet extends HttpServlet {
 			uContext = caClient.enrollUser(uContext, secret);
 
 			FabricClient fabClient = new FabricClient(uContext);
-			
+
 			ChannelClient channelClient = fabClient.createChannelClient(ConfigNetwork.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
 			Peer peer = fabClient.getInstance().newPeer(ConfigNetwork.ORG1_PEER_1, ConfigNetwork.ORG1_PEER_1_URL);
@@ -111,26 +120,47 @@ public class QueryAllPastNeedsServlet extends HttpServlet {
 			channel.addOrderer(orderer);
 			channel.initialize();
 
-			Logger.getLogger(QueryAllPastNeedsServlet.class.getName()).log(Level.INFO, "Querying for all past needs ...");
-			String[] args = {req.getString("date")};
-			Collection<ProposalResponse>  responsesQuery = channelClient.queryByChainCode(ConfigNetwork.CHAINCODE_1_NAME, "queryAllPastNeeds", args);
-			for (ProposalResponse pres : responsesQuery) {
-				stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryAllPastNeedsServlet.class.getName()).log(Level.INFO, stringResponse);
+			TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
+			ChaincodeID ccid = ChaincodeID.newBuilder().setName(ConfigNetwork.CHAINCODE_1_NAME).build();
+			request.setChaincodeID(ccid);
+			request.setFcn("createPledge");
+			String[] arguments = { req.getString("pledgeId"), req.getString("needId"), req.getString("qty"),
+					req.getString("ngo"), req.getString("status") };
+			request.setArgs(arguments);
+			request.setProposalWaitTime(1000);
+
+			Map<String, byte[]> tm2 = new HashMap<>();
+			tm2.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8));
+			tm2.put("method", "TransactionProposalRequest".getBytes(UTF_8));
+			tm2.put("result", ":)".getBytes(UTF_8));
+			tm2.put("rc", (ConfigNetwork.CHANNEL_NAME + "").getBytes(UTF_8));
+			tm2.put(Util.EXPECTED_EVENT_NAME, Util.EXPECTED_EVENT_DATA);
+			request.setTransientMap(tm2);
+			Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
+			for (ProposalResponse res : responses) {
+				Status status = res.getStatus();
+				Logger.getLogger(CreatePledgeServlet.class.getName()).log(Level.INFO,
+						"Invoked createPledge on " + ConfigNetwork.CHAINCODE_1_NAME + ". Status - " + status);
 			}
-	
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return stringResponse;
+
+		return null;
 	}
 
-	//Test code
-	public static void main(String[] args) {
+	// Test code
+	public static void main(String args[]) {
 		JSONObject req = new JSONObject();
-		req.put("uname", "usr1");
-		req.put("date", "26-2-2019");
-		queryAllPastNeeds(req);
+		req.put("uname", "usr2");
+		req.put("needId", "N1");
+		req.put("pledgeId", "P1");
+		req.put("qty", "100");
+		req.put("ngo", "NGO2");
+		req.put("status", "Pledged");
+		createPledge(req);
 	}
+
 
 }

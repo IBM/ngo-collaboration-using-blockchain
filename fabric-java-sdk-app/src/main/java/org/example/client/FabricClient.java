@@ -11,7 +11,7 @@
  *  limitations under the License.
  */ 
 
-package org.app.client;
+package org.example.client;
 
 import java.io.File;
 import java.io.IOException;

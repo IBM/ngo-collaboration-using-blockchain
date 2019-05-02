@@ -11,7 +11,7 @@
  *  limitations under the License.
  */ 
 
-package org.app.servlet;
+package org.example.servlet;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -24,12 +24,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.app.client.CAClient;
-import org.app.client.ChannelClient;
-import org.app.client.FabricClient;
-import org.app.config.ConfigNetwork;
-import org.app.user.UserContext;
-import org.app.util.Util;
+import org.example.client.CAClient;
+import org.example.client.ChannelClient;
+import org.example.client.FabricClient;
+import org.example.config.ConfigNetwork;
+import org.example.user.UserContext;
+import org.example.util.Util;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.Orderer;
 import org.hyperledger.fabric.sdk.Peer;
@@ -37,26 +37,24 @@ import org.hyperledger.fabric.sdk.ProposalResponse;
 import org.json.JSONObject;
 
 /**
- * Servlet implementation class QueryPledgeServlet
+ * Servlet implementation class QueryAllPledgesForNeedServlet
  */
-@WebServlet("/QueryPledgeServlet")
-public class QueryPledgeServlet extends HttpServlet {
+@WebServlet("/QueryAllPledgesForNeedServlet")
+public class QueryAllPledgesForNeedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public QueryAllPledgesForNeedServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public QueryPledgeServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			StringBuilder sb = new StringBuilder();
 			String s;
@@ -65,7 +63,7 @@ public class QueryPledgeServlet extends HttpServlet {
 			}
 			Logger.getLogger(getServletName()).log(Level.INFO, "Received configuration - " + sb.toString());
 			JSONObject req = new JSONObject(sb.toString());
-			String res =queryPledge(req);
+			String res = queryAllPledgesForNeed(req);
 			response.getWriter().append(res);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,23 +71,21 @@ public class QueryPledgeServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
-	private static String queryPledge(JSONObject req) {
+	private static String queryAllPledgesForNeed(JSONObject req) {
 		String stringResponse = "";
 		try {
 			String caUrl = ConfigNetwork.CA_ORG1_URL;
 			CAClient caClient = new CAClient(caUrl, null);
 			// Enroll Admin to Org1MSP
 			UserContext adminUserContext = new UserContext();
-			adminUserContext.setName(org.app.config.ConfigNetwork.ADMIN);
+			adminUserContext.setName(org.example.config.ConfigNetwork.ADMIN);
 			adminUserContext.setAffiliation(ConfigNetwork.ORG1);
 			adminUserContext.setMspId(ConfigNetwork.ORG1_MSP);
 			caClient.setAdminUserContext(adminUserContext);
@@ -114,13 +110,13 @@ public class QueryPledgeServlet extends HttpServlet {
 			channel.addOrderer(orderer);
 			channel.initialize();
 
-			Logger.getLogger(QueryPledgeServlet.class.getName()).log(Level.INFO, "Querying for pledge ...");
-			String[] args = { req.getString("pledgeId") };
+			Logger.getLogger(QueryAllPledgesForNeedServlet.class.getName()).log(Level.INFO, "Querying for pledges for a need ...");
+			String[] args = { req.getString("needId") };
 			Collection<ProposalResponse> responsesQuery = channelClient.queryByChainCode(ConfigNetwork.CHAINCODE_1_NAME,
-					"queryPledge", args);
+					"queryAllPledgesForNeed", args);
 			for (ProposalResponse pres : responsesQuery) {
 				stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryPledgeServlet.class.getName()).log(Level.INFO, stringResponse);
+				Logger.getLogger(QueryAllPledgesForNeedServlet.class.getName()).log(Level.INFO, stringResponse);
 			}
 
 		} catch (Exception e) {
@@ -129,12 +125,12 @@ public class QueryPledgeServlet extends HttpServlet {
 		return stringResponse;
 	}
 
-	//Test code
+	// Test code
 	public static void main(String[] args) {
 		JSONObject req = new JSONObject();
-		req.put("uname", "usr1");
-		req.put("pledgeId", "P1");
-		queryPledge(req);
+		req.put("uname", "usr2");
+		req.put("needId", "N1");
+		queryAllPledgesForNeed(req);
 	}
 
 }

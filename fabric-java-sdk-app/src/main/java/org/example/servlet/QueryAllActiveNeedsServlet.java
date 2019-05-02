@@ -11,7 +11,7 @@
  *  limitations under the License.
  */ 
 
-package org.app.servlet;
+package org.example.servlet;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -24,12 +24,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.app.client.CAClient;
-import org.app.client.ChannelClient;
-import org.app.client.FabricClient;
-import org.app.config.ConfigNetwork;
-import org.app.user.UserContext;
-import org.app.util.Util;
+import org.example.client.CAClient;
+import org.example.client.ChannelClient;
+import org.example.client.FabricClient;
+import org.example.config.ConfigNetwork;
+import org.example.user.UserContext;
+import org.example.util.Util;
 import org.hyperledger.fabric.sdk.Channel;
 
 import org.hyperledger.fabric.sdk.Orderer;
@@ -87,7 +87,7 @@ public class QueryAllActiveNeedsServlet extends HttpServlet {
 			CAClient caClient = new CAClient(caUrl, null);
 			// Enroll Admin to Org1MSP
 			UserContext adminUserContext = new UserContext();
-			adminUserContext.setName(org.app.config.ConfigNetwork.ADMIN);
+			adminUserContext.setName(org.example.config.ConfigNetwork.ADMIN);
 			adminUserContext.setAffiliation(ConfigNetwork.ORG1);
 			adminUserContext.setMspId(ConfigNetwork.ORG1_MSP);
 			caClient.setAdminUserContext(adminUserContext);

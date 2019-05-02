@@ -11,7 +11,7 @@
  *  limitations under the License.
  */ 
 
-package org.app.servlet;
+package org.example.servlet;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -24,40 +24,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.app.client.CAClient;
-import org.app.client.ChannelClient;
-import org.app.client.FabricClient;
-import org.app.config.ConfigNetwork;
-import org.app.user.UserContext;
-import org.app.util.Util;
+import org.example.client.CAClient;
+import org.example.client.ChannelClient;
+import org.example.client.FabricClient;
+import org.example.config.ConfigNetwork;
+import org.example.user.UserContext;
+import org.example.util.Util;
 import org.hyperledger.fabric.sdk.Channel;
-
 import org.hyperledger.fabric.sdk.Orderer;
 import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.ProposalResponse;
 import org.json.JSONObject;
 
 /**
- * Servlet implementation class QueryAllActiveNeedsServlet
+ * Servlet implementation class QueryAllPastNeedsServlet
  */
-@WebServlet("/QueryNeedServlet")
-public class QueryNeedServlet extends HttpServlet {
+@WebServlet("/QueryAllPastNeedsServlet")
+public class QueryAllPastNeedsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public QueryAllPastNeedsServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public QueryNeedServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			StringBuilder sb = new StringBuilder();
 			String s;
@@ -66,7 +63,7 @@ public class QueryNeedServlet extends HttpServlet {
 			}
 			Logger.getLogger(getServletName()).log(Level.INFO, "Received configuration - " + sb.toString());
 			JSONObject req = new JSONObject(sb.toString());
-			String res = queryNeed(req);
+			String res = queryAllPastNeeds(req);
 			response.getWriter().append(res);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,28 +71,27 @@ public class QueryNeedServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
-	private static String queryNeed(JSONObject req) {
+	private static String queryAllPastNeeds(JSONObject req)
+	{
 		String stringResponse = "";
 		try {
-			String caUrl = ConfigNetwork.CA_ORG1_URL;
+  			String caUrl = ConfigNetwork.CA_ORG1_URL;
 			CAClient caClient = new CAClient(caUrl, null);
 			// Enroll Admin to Org1MSP
 			UserContext adminUserContext = new UserContext();
-			adminUserContext.setName(org.app.config.ConfigNetwork.ADMIN);
+			adminUserContext.setName(org.example.config.ConfigNetwork.ADMIN);
 			adminUserContext.setAffiliation(ConfigNetwork.ORG1);
 			adminUserContext.setMspId(ConfigNetwork.ORG1_MSP);
 			caClient.setAdminUserContext(adminUserContext);
 			adminUserContext = caClient.enrollAdminUser(ConfigNetwork.ADMIN, ConfigNetwork.ADMIN_PASSWORD);
-
+			
 			// Register and enroll user
 			String username = req.getString("uname");
 			UserContext uContext = new UserContext();
@@ -106,7 +102,7 @@ public class QueryNeedServlet extends HttpServlet {
 			uContext = caClient.enrollUser(uContext, secret);
 
 			FabricClient fabClient = new FabricClient(uContext);
-
+			
 			ChannelClient channelClient = fabClient.createChannelClient(ConfigNetwork.CHANNEL_NAME);
 			Channel channel = channelClient.getChannel();
 			Peer peer = fabClient.getInstance().newPeer(ConfigNetwork.ORG1_PEER_1, ConfigNetwork.ORG1_PEER_1_URL);
@@ -115,15 +111,14 @@ public class QueryNeedServlet extends HttpServlet {
 			channel.addOrderer(orderer);
 			channel.initialize();
 
-			Logger.getLogger(QueryNeedServlet.class.getName()).log(Level.INFO, "Querying for need ...");
-			String[] args = { req.getString("needId") };
-			Collection<ProposalResponse> responsesQuery = channelClient.queryByChainCode(ConfigNetwork.CHAINCODE_1_NAME,
-					"queryNeed", args);
+			Logger.getLogger(QueryAllPastNeedsServlet.class.getName()).log(Level.INFO, "Querying for all past needs ...");
+			String[] args = {req.getString("date")};
+			Collection<ProposalResponse>  responsesQuery = channelClient.queryByChainCode(ConfigNetwork.CHAINCODE_1_NAME, "queryAllPastNeeds", args);
 			for (ProposalResponse pres : responsesQuery) {
 				stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryNeedServlet.class.getName()).log(Level.INFO, stringResponse);
+				Logger.getLogger(QueryAllPastNeedsServlet.class.getName()).log(Level.INFO, stringResponse);
 			}
-
+	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -134,7 +129,8 @@ public class QueryNeedServlet extends HttpServlet {
 	public static void main(String[] args) {
 		JSONObject req = new JSONObject();
 		req.put("uname", "usr1");
-		req.put("needId", "N1");
-		queryNeed(req);
+		req.put("date", "26-2-2019");
+		queryAllPastNeeds(req);
 	}
+
 }
