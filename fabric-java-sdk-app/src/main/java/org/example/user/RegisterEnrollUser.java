@@ -11,12 +11,13 @@
  *  limitations under the License.
  */ 
 
-package org.app.user;
+package org.example.user;
 
 import java.util.Properties;
-import org.app.client.CAClient;
-import org.app.config.ConfigNetwork;
-import org.app.util.Util;
+
+import org.example.client.CAClient;
+import org.example.config.ConfigNetwork;
+import org.example.util.Util;
 
 public class RegisterEnrollUser {
 	public static void main(String[] args) {

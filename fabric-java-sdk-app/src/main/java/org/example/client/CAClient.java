@@ -11,15 +11,16 @@
  *  limitations under the License.
  */ 
 
-package org.app.client;
+package org.example.client;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.app.user.UserContext;
-import org.app.util.Util;
+
+import org.example.user.UserContext;
+import org.example.util.Util;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
