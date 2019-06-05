@@ -69,7 +69,7 @@ The scripts and configuration files to setup the network for this pattern can be
 
 * Create a [Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster?bss_account=01fedb4f3ff70b186d83cdb1e1e0cbc8) instance using IBM Cloud dashboard.
 * Gain access of your Kubernetes cluster as explained in `step 3` in [repository](https://github.com/IBM/blockchain-network-on-kubernetes) and ensure you are able to run `kubectl` commands properly.
-* In case of IKS 1.11.x, modify the `blockchain-network-on-kubernetes/configFiles/peersDeployment.yaml` file to point to a Docker service. Change instances of `unix:///host/var/run/docker.sock` to `tcp://docker:2375` with a text editor or use the commands below.
+* In case of IKS 1.11.x or greater, modify the `blockchain-network-on-kubernetes/configFiles/peersDeployment.yaml` file to point to a Docker service. Change instances of `unix:///host/var/run/docker.sock` to `tcp://docker:2375` with a text editor or use the commands below.
    ```
    ## macOS
    $ sed -i '' s#unix:///host/var/run/docker.sock#tcp://docker:2375# configFiles/peersDeployment.yaml
