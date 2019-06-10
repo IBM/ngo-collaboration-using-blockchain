@@ -69,7 +69,7 @@ The scripts and configuration files to setup the network for this pattern can be
 
 * Create a [Kubernetes Service](https://cloud.ibm.com/kubernetes/catalog/cluster?bss_account=01fedb4f3ff70b186d83cdb1e1e0cbc8) instance using IBM Cloud dashboard.
 * Gain access of your Kubernetes cluster as explained in `step 3` in [repository](https://github.com/IBM/blockchain-network-on-kubernetes) and ensure you are able to run `kubectl` commands properly.
-* In case of IKS 1.11.x, modify the `blockchain-network-on-kubernetes/configFiles/peersDeployment.yaml` file to point to a Docker service. Change instances of `unix:///host/var/run/docker.sock` to `tcp://docker:2375` with a text editor or use the commands below.
+* In case of IKS 1.11.x or greater, modify the `blockchain-network-on-kubernetes/configFiles/peersDeployment.yaml` file to point to a Docker service. Change instances of `unix:///host/var/run/docker.sock` to `tcp://docker:2375` with a text editor or use the commands below.
    ```
    ## macOS
    $ sed -i '' s#unix:///host/var/run/docker.sock#tcp://docker:2375# configFiles/peersDeployment.yaml
@@ -160,11 +160,23 @@ Make a note of this Fabric Java SDK client application's url. On IBM Cloud dashb
 
 A web application is provided to perform various operations like `View Needs`, `Create Need`, `Pledge for a need` etc. Web appication code can be found under `webapp` directory.
 
-This web application invokes rest interfaces implemented in Fabric Java SDK client application as explained above. Hence the web application needs Fabric Java SDK client application url for rest invocations. The url is stored in `config.js` file. Update the Java application url, as noted in section [Build the client application based on Fabric Java SDK](#3-build-the-client-application-based-on-fabric-java-sdk) in `config.js` file, found in the root folder of web application.
+This web application invokes rest interfaces implemented in Fabric Java SDK client application as explained above. Hence the web application needs Fabric Java SDK client application url for rest invocations.
 
-On command prompt navigate to web application root folder. Run the command `npm install`. This installs all the necessary libraries.
+Perform the following steps:
 
-Next you will deploy the web application to IBM Cloud. Deploy the application to IBM Cloud using the command `ibmcloud cf push`. Deployment might take a few minutes to complete. Ensure that there are no errors while deploying the application. 
+- Update the Java application url, as noted in section [Build the client application based on Fabric Java SDK](#3-build-the-client-application-based-on-fabric-java-sdk) in `config.js` file, found in the root folder of web application.
+
+- On command prompt navigate to web application root folder. Run the command 
+  ```
+  npm install
+  ```
+  This installs all the necessary libraries.
+
+- Next you will deploy the web application to IBM Cloud. Deploy the application to IBM Cloud using the command 
+  ```
+  ibmcloud cf push
+  ```
+  Deployment might take a few minutes to complete. Ensure that there are no errors while deploying the application. 
 
 
 ## 5. Analyze the Results
