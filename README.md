@@ -1,6 +1,7 @@
 
-# Non-Governmental Organizations(NGOs) collaboration using Blockchain - A Composite Pattern
-**Demonstrate the use of Hyperledger Fabric for building a collaboration platform for NGOs.**
+# Facilitate collaboration between non-governmental organizations using blockchain
+
+### Use Hyperledger Fabric to manage supply and demand of goods to be distributed to the needy
 
 NGO is a non-profit organization that operates independently of any government and is a social voluntary organization of social activist, group of persons, community, volunteers and citizens who are associated for social welfare and social development. NGOs are usually funded by donations, but some avoid formal funding altogether and are run primarily by volunteers. Every NGO has its own mission and objectives.
 
