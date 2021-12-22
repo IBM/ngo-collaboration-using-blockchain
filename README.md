@@ -1,4 +1,6 @@
 
+## NOTE: This repository has been archived and no longer maintained!
+
 # Facilitate collaboration between non-governmental organizations using blockchain
 
 ### Use Hyperledger Fabric to manage supply and demand of goods to be distributed to the needy
